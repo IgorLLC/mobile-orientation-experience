@@ -1,15 +1,19 @@
 /**
- * Mobile Orientation Experience
- * Detecta y responde a cambios de orientación del dispositivo
+ * Mobile Coupon Reveal Experience
+ * Muestra un cupón al girar el teléfono a posición vertical
  */
 
 (function() {
     'use strict';
 
+    // Inicializar Lucide icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+
     // Elementos del DOM
-    const portraitView = document.querySelector('.portrait-view');
-    const landscapeView = document.querySelector('.landscape-view');
     const transitionOverlay = document.getElementById('transitionOverlay');
+    const copyBtn = document.getElementById('copyBtn');
 
     // Estado actual
     let currentOrientation = null;
@@ -35,66 +39,97 @@
     }
 
     /**
-     * Muestra la vista correspondiente a la orientación
-     * @param {string} orientation - 'portrait' o 'landscape'
-     * @param {boolean} animate - Si debe animar la transición
-     */
-    function showView(orientation, animate = true) {
-        if (isTransitioning) return;
-        
-        const isPortrait = orientation === 'portrait';
-        
-        if (animate && currentOrientation !== null && currentOrientation !== orientation) {
-            // Mostrar overlay de transición
-            isTransitioning = true;
-            transitionOverlay.classList.add('visible');
-            
-            // Remover clase active de ambas vistas
-            portraitView.classList.remove('active');
-            landscapeView.classList.remove('active');
-            
-            // Después de un breve delay, mostrar la nueva vista
-            setTimeout(() => {
-                if (isPortrait) {
-                    portraitView.classList.add('active');
-                } else {
-                    landscapeView.classList.add('active');
-                }
-                
-                // Ocultar overlay
-                setTimeout(() => {
-                    transitionOverlay.classList.remove('visible');
-                    isTransitioning = false;
-                }, 200);
-            }, 300);
-        } else {
-            // Sin animación (carga inicial)
-            if (isPortrait) {
-                portraitView.classList.add('active');
-                landscapeView.classList.remove('active');
-            } else {
-                landscapeView.classList.add('active');
-                portraitView.classList.remove('active');
-            }
-        }
-        
-        currentOrientation = orientation;
-        
-        // Log para debugging
-        console.log(`Orientación: ${orientation}`);
-    }
-
-    /**
-     * Manejador del evento de cambio de orientación
+     * Maneja el cambio de orientación con transición
      */
     function handleOrientationChange() {
+        if (isTransitioning) return;
+        
         // Pequeño delay para asegurar que las dimensiones se actualicen
         setTimeout(() => {
             const newOrientation = getOrientation();
+            
             if (newOrientation !== currentOrientation) {
-                showView(newOrientation, true);
+                // Mostrar transición breve
+                if (currentOrientation !== null) {
+                    isTransitioning = true;
+                    transitionOverlay.classList.add('visible');
+                    
+                    setTimeout(() => {
+                        transitionOverlay.classList.remove('visible');
+                        isTransitioning = false;
+                        
+                        // Re-inicializar iconos después de la transición
+                        if (typeof lucide !== 'undefined') {
+                            lucide.createIcons();
+                        }
+                    }, 400);
+                }
+                
+                currentOrientation = newOrientation;
+                console.log(`Orientación: ${newOrientation}`);
             }
         }, 100);
+    }
+
+    /**
+     * Copia el código del cupón al portapapeles
+     */
+    function copyCouponCode() {
+        const code = 'AHORRA20';
+        
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(code).then(() => {
+                showCopyFeedback();
+            }).catch(() => {
+                fallbackCopy(code);
+            });
+        } else {
+            fallbackCopy(code);
+        }
+    }
+
+    /**
+     * Fallback para copiar en navegadores sin Clipboard API
+     */
+    function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        
+        try {
+            document.execCommand('copy');
+            showCopyFeedback();
+        } catch (err) {
+            console.error('Error al copiar:', err);
+        }
+        
+        document.body.removeChild(textarea);
+    }
+
+    /**
+     * Muestra feedback visual al copiar
+     */
+    function showCopyFeedback() {
+        const btn = copyBtn;
+        const originalHTML = btn.innerHTML;
+        
+        btn.innerHTML = '<i data-lucide="check" class="icon-copy"></i>';
+        btn.style.background = 'rgba(76, 175, 80, 0.5)';
+        
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+        
+        setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            btn.style.background = '';
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }, 2000);
     }
 
     /**
@@ -116,13 +151,17 @@
             resizeTimeout = setTimeout(handleOrientationChange, 150);
         });
         
-        // matchMedia listener (otro método de detección)
+        // matchMedia listener
         const mediaQuery = window.matchMedia('(orientation: portrait)');
         if (mediaQuery.addEventListener) {
             mediaQuery.addEventListener('change', handleOrientationChange);
         } else if (mediaQuery.addListener) {
-            // Para navegadores antiguos
             mediaQuery.addListener(handleOrientationChange);
+        }
+        
+        // Copiar cupón
+        if (copyBtn) {
+            copyBtn.addEventListener('click', copyCouponCode);
         }
     }
 
@@ -134,7 +173,6 @@
         document.addEventListener('gesturechange', (e) => e.preventDefault());
         document.addEventListener('gestureend', (e) => e.preventDefault());
         
-        // Prevenir doble tap zoom
         let lastTouchEnd = 0;
         document.addEventListener('touchend', (e) => {
             const now = Date.now();
@@ -150,17 +188,16 @@
      */
     function init() {
         // Detectar orientación inicial
-        const initialOrientation = getOrientation();
-        showView(initialOrientation, false);
+        currentOrientation = getOrientation();
         
         // Configurar listeners
         initListeners();
         
-        // Prevenir zoom (mejor UX en móvil)
+        // Prevenir zoom
         preventZoom();
         
-        console.log('Mobile Orientation Experience inicializado');
-        console.log(`Orientación inicial: ${initialOrientation}`);
+        console.log('Coupon Reveal Experience inicializado');
+        console.log(`Orientación inicial: ${currentOrientation}`);
     }
 
     // Ejecutar cuando el DOM esté listo
