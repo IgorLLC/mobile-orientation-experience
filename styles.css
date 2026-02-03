@@ -28,24 +28,6 @@ body {
 }
 
 /* ================================
-   Logo de BK
-   ================================ */
-.bk-logo {
-    display: block;
-    margin: 0 auto 20px auto;
-}
-
-.bk-logo-small {
-    width: 80px;
-    height: auto;
-}
-
-.bk-logo-large {
-    width: 100px;
-    height: auto;
-}
-
-/* ================================
    Ocultar ambas vistas por defecto
    ================================ */
 .portrait-view,
@@ -79,14 +61,19 @@ body {
 }
 
 /* ================================
-   Media Query: Landscape (Horizontal) - Cupon
+   Media Query: Landscape (Horizontal) - FULLSCREEN
    ================================ */
 @media (orientation: landscape) {
     .landscape-view {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: stretch;
+        width: 100vw;
+        height: 100vh;
+        padding: 0;
+        gap: 0;
+        overflow: hidden;
         background: var(--fire-gradient);
     }
     
@@ -98,124 +85,146 @@ body {
         background: var(--fire-gradient);
     }
     
-    /* Contenedor del cupon en landscape */
-    .landscape-view .coupon-container {
-        width: 100%;
-        max-width: 100%;
+    /* Seccion del logo - lado izquierdo FULLSCREEN */
+    .logo-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30%;
+        min-width: 30%;
         height: 100%;
-        padding: 0;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.2);
+    }
+    
+    .logo-section .bk-logo-large {
+        display: block;
+        width: 80%;
+        max-width: 140px;
+        height: auto;
+    }
+    
+    /* Cupon ocupa el resto - FULLSCREEN */
+    .landscape-view .coupon-container {
+        flex: 1;
+        width: 70%;
+        max-width: none;
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 10px 15px;
+        overflow: hidden;
     }
     
     .landscape-view .coupon-reveal {
         width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        padding: 15px 30px;
-        gap: 30px;
-    }
-    
-    /* Header del cupon en landscape - lado izquierdo */
-    .landscape-view .coupon-header {
-        flex: 0 0 auto;
-        margin-bottom: 0;
-        text-align: center;
+        max-width: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    
+    .landscape-view .coupon-header {
+        margin-bottom: 10px;
     }
     
     .landscape-view .coupon-header .icon-gift {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
     }
     
     .landscape-view .coupon-header h1 {
-        font-size: 1.6rem;
-        margin-top: 8px;
-        white-space: nowrap;
+        font-size: 1.3rem;
+        margin-top: 5px;
     }
     
-    /* Tarjeta del cupon en landscape */
     .landscape-view .coupon-card {
-        flex: 1;
-        max-width: 450px;
-        min-width: 300px;
-        padding: 20px 30px;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        width: 100%;
+        max-width: 320px;
+        padding: 15px 20px;
     }
     
     .landscape-view .coupon-content {
-        padding: 10px 0;
+        padding: 8px 0;
     }
     
     .landscape-view .coupon-label {
-        font-size: 0.85rem;
-        margin-bottom: 8px;
+        font-size: 0.75rem;
+        margin-bottom: 6px;
     }
     
     .landscape-view .coupon-code {
-        padding: 12px 20px;
-        margin-bottom: 8px;
+        padding: 10px 16px;
+        margin-bottom: 6px;
     }
     
     .landscape-view .coupon-code span {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         letter-spacing: 2px;
     }
     
     .landscape-view .coupon-discount {
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
     
     .landscape-view .coupon-footer {
-        padding-top: 12px;
-        font-size: 0.8rem;
+        padding-top: 8px;
+        font-size: 0.7rem;
     }
     
     .landscape-view .coupon-badge {
-        width: 40px;
-        height: 40px;
-        top: -12px;
-        right: 15px;
+        width: 32px;
+        height: 32px;
+        top: -10px;
+        right: 12px;
     }
     
     .landscape-view .coupon-badge .icon-percent {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
     }
     
-    /* Instrucciones en landscape */
     .landscape-view .coupon-instructions {
-        flex: 0 0 auto;
-        margin-top: 0;
-        font-size: 0.85rem;
-        flex-direction: column;
-        text-align: center;
-        gap: 5px;
-    }
-    
-    .landscape-view .bk-logo-large {
-        position: absolute;
-        top: 15px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
+        margin-top: 10px;
+        font-size: 0.75rem;
     }
 }
 
 /* ================================
-   Vista Portrait - Mensaje Girar
+   Estilos del Logo BK
+   ================================ */
+.bk-logo {
+    display: block;
+}
+
+.bk-logo-small {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: auto;
+    z-index: 10;
+}
+
+.bk-logo-large {
+    display: block;
+    width: 100%;
+    max-width: 140px;
+    height: auto;
+}
+
+/* Ocultar logo-section en portrait */
+.logo-section {
+    display: none;
+}
+
+/* ================================
+   Vista Portrait - Cupon
    ================================ */
 .coupon-container {
     width: 100%;
@@ -605,8 +614,8 @@ body {
     }
 }
 
-/* Mensaje para desktop */
-@media (min-width: 1024px) {
+/* Quitar mensaje de desktop para que funcione en landscape */
+@media (min-width: 1024px) and (orientation: portrait) {
     body::before {
         content: 'Esta experiencia esta disenada para dispositivos moviles';
         position: fixed;
