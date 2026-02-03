@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Experiencia Móvil</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Vista Vertical (Portrait) -->
+    <div class="portrait-view">
+        <header class="portrait-header">
+            <h1>Modo Vertical</h1>
+            <p class="hint">Gira tu dispositivo para ver otra experiencia</p>
+        </header>
+        
+        <main class="portrait-content">
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <h2>Bienvenido</h2>
+                <p>Esta es la vista optimizada para cuando sostienes tu teléfono en posición vertical.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🔄</div>
+                <h2>Gira el Dispositivo</h2>
+                <p>Al girar tu teléfono horizontalmente, verás una experiencia completamente diferente.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">✨</div>
+                <h2>Contenido Adaptativo</h2>
+                <p>Cada orientación está diseñada para ofrecer la mejor experiencia posible.</p>
+            </div>
+        </main>
+        
+        <footer class="portrait-footer">
+            <div class="rotate-indicator">
+                <span class="rotate-icon">↻</span>
+                <span>Gira para más</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Vista Horizontal (Landscape) -->
+    <div class="landscape-view">
+        <div class="landscape-container">
+            <div class="landscape-sidebar">
+                <div class="sidebar-icon">🌟</div>
+                <h2>Modo Horizontal</h2>
+                <p>Experiencia inmersiva a pantalla completa</p>
+            </div>
+            
+            <div class="landscape-main">
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">🎮</span>
+                        <span class="feature-text">Juegos</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎬</span>
+                        <span class="feature-text">Videos</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <span class="feature-text">Datos</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🗺️</span>
+                        <span class="feature-text">Mapas</span>
+                    </div>
+                </div>
+                
+                <div class="landscape-message">
+                    <p>Esta vista aprovecha todo el ancho de la pantalla para contenido inmersivo.</p>
+                    <div class="rotate-hint">
+                        <span class="rotate-icon">↻</span>
+                        <span>Gira para volver al modo vertical</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay de transición -->
+    <div class="transition-overlay" id="transitionOverlay">
+        <div class="transition-spinner"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
