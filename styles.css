@@ -30,7 +30,7 @@ body {
 }
 
 /* ================================
-   Media Query: Portrait (Vertical)
+   Media Query: Portrait (Vertical) - Mensaje girar
    ================================ */
 @media (orientation: portrait) {
     .portrait-view {
@@ -42,10 +42,14 @@ body {
     .landscape-view {
         display: none !important;
     }
+    
+    body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    }
 }
 
 /* ================================
-   Media Query: Landscape (Horizontal)
+   Media Query: Landscape (Horizontal) - Cupón
    ================================ */
 @media (orientation: landscape) {
     .landscape-view {
@@ -59,7 +63,7 @@ body {
     }
     
     body {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
 }
 

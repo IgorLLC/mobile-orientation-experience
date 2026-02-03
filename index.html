@@ -11,8 +11,25 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <!-- Vista Vertical (Portrait) - Muestra el Cupón -->
+    <!-- Vista Vertical (Portrait) - Mensaje para girar -->
     <div class="portrait-view">
+        <div class="rotate-message">
+            <div class="rotate-icon-container">
+                <i data-lucide="smartphone" class="icon-phone"></i>
+                <div class="rotate-arrow">
+                    <i data-lucide="rotate-ccw" class="icon-rotate"></i>
+                </div>
+            </div>
+            <h2>Gira tu teléfono</h2>
+            <p>para descubrir tu cupón exclusivo</p>
+            <div class="hint-animation">
+                <i data-lucide="chevrons-down" class="icon-chevrons"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vista Horizontal (Landscape) - Muestra el Cupón -->
+    <div class="landscape-view">
         <div class="coupon-container">
             <div class="coupon-reveal">
                 <div class="coupon-header">
@@ -44,23 +61,6 @@
                     <i data-lucide="shopping-cart" class="icon-small"></i>
                     Usa este código en tu próxima compra
                 </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Vista Horizontal (Landscape) - Mensaje para girar -->
-    <div class="landscape-view">
-        <div class="rotate-message">
-            <div class="rotate-icon-container">
-                <i data-lucide="smartphone" class="icon-phone"></i>
-                <div class="rotate-arrow">
-                    <i data-lucide="rotate-ccw" class="icon-rotate"></i>
-                </div>
-            </div>
-            <h2>Gira tu teléfono</h2>
-            <p>para descubrir tu cupón exclusivo</p>
-            <div class="hint-animation">
-                <i data-lucide="chevrons-down" class="icon-chevrons"></i>
             </div>
         </div>
     </div>
