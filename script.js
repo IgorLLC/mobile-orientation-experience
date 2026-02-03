@@ -1,6 +1,6 @@
 /**
  * Mobile Coupon Reveal Experience
- * Muestra un cupón al girar el teléfono a posición vertical
+ * Muestra un cupón al girar el teléfono a posición horizontal
  */
 
 (function() {
@@ -20,36 +20,49 @@
     let isTransitioning = false;
 
     /**
+     * Actualiza la altura del viewport para móviles
+     */
+    function updateViewportHeight() {
+        const vh = window.innerHeight;
+        document.documentElement.style.setProperty('--real-vh', `${vh}px`);
+        
+        // Aplicar altura real a las vistas
+        const views = document.querySelectorAll('.landscape-view, .portrait-view');
+        views.forEach(view => {
+            view.style.height = `${vh}px`;
+        });
+    }
+
+    /**
      * Detecta la orientación actual del dispositivo
-     * @returns {string} 'portrait' o 'landscape'
      */
     function getOrientation() {
-        // Método 1: Screen Orientation API (más confiable)
+        // Método 1: Screen Orientation API
         if (screen.orientation && screen.orientation.type) {
             return screen.orientation.type.includes('portrait') ? 'portrait' : 'landscape';
         }
         
-        // Método 2: window.orientation (legacy, para iOS antiguo)
+        // Método 2: window.orientation (legacy)
         if (typeof window.orientation !== 'undefined') {
             return (window.orientation === 0 || window.orientation === 180) ? 'portrait' : 'landscape';
         }
         
-        // Método 3: Comparar dimensiones de ventana
+        // Método 3: Comparar dimensiones
         return window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
     }
 
     /**
-     * Maneja el cambio de orientación con transición
+     * Maneja el cambio de orientación
      */
     function handleOrientationChange() {
         if (isTransitioning) return;
         
-        // Pequeño delay para asegurar que las dimensiones se actualicen
+        updateViewportHeight();
+        
         setTimeout(() => {
             const newOrientation = getOrientation();
             
             if (newOrientation !== currentOrientation) {
-                // Mostrar transición breve
                 if (currentOrientation !== null) {
                     isTransitioning = true;
                     transitionOverlay.classList.add('visible');
@@ -58,21 +71,20 @@
                         transitionOverlay.classList.remove('visible');
                         isTransitioning = false;
                         
-                        // Re-inicializar iconos después de la transición
                         if (typeof lucide !== 'undefined') {
                             lucide.createIcons();
                         }
-                    }, 400);
+                    }, 300);
                 }
                 
                 currentOrientation = newOrientation;
-                console.log(`Orientación: ${newOrientation}`);
+                updateViewportHeight();
             }
-        }, 100);
+        }, 50);
     }
 
     /**
-     * Copia el código del cupón al portapapeles
+     * Copia el código del cupón
      */
     function copyCouponCode() {
         const code = 'BKHOTDOG';
@@ -88,9 +100,6 @@
         }
     }
 
-    /**
-     * Fallback para copiar en navegadores sin Clipboard API
-     */
     function fallbackCopy(text) {
         const textarea = document.createElement('textarea');
         textarea.value = text;
@@ -109,13 +118,11 @@
         document.body.removeChild(textarea);
     }
 
-    /**
-     * Muestra feedback visual al copiar
-     */
     function showCopyFeedback() {
         const btn = copyBtn;
-        const originalHTML = btn.innerHTML;
+        if (!btn) return;
         
+        const originalHTML = btn.innerHTML;
         btn.innerHTML = '<i data-lucide="check" class="icon-copy"></i>';
         btn.style.background = 'rgba(76, 175, 80, 0.5)';
         
@@ -136,27 +143,30 @@
      * Inicializa los event listeners
      */
     function initListeners() {
-        // Screen Orientation API (moderno)
+        // Screen Orientation API
         if (screen.orientation) {
             screen.orientation.addEventListener('change', handleOrientationChange);
         }
         
-        // Evento orientationchange (legacy, mejor soporte)
-        window.addEventListener('orientationchange', handleOrientationChange);
+        // Evento orientationchange (legacy)
+        window.addEventListener('orientationchange', () => {
+            setTimeout(handleOrientationChange, 100);
+        });
         
-        // Resize como fallback (útil para testing en desktop)
+        // Resize
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(handleOrientationChange, 150);
+            resizeTimeout = setTimeout(() => {
+                updateViewportHeight();
+                handleOrientationChange();
+            }, 100);
         });
         
         // matchMedia listener
         const mediaQuery = window.matchMedia('(orientation: portrait)');
         if (mediaQuery.addEventListener) {
             mediaQuery.addEventListener('change', handleOrientationChange);
-        } else if (mediaQuery.addListener) {
-            mediaQuery.addListener(handleOrientationChange);
         }
         
         // Copiar cupón
@@ -184,23 +194,18 @@
     }
 
     /**
-     * Inicialización principal
+     * Inicialización
      */
     function init() {
-        // Detectar orientación inicial
+        updateViewportHeight();
         currentOrientation = getOrientation();
-        
-        // Configurar listeners
         initListeners();
-        
-        // Prevenir zoom
         preventZoom();
         
-        console.log('Coupon Reveal Experience inicializado');
-        console.log(`Orientación inicial: ${currentOrientation}`);
+        // Actualizar viewport cuando cambia
+        window.addEventListener('load', updateViewportHeight);
     }
 
-    // Ejecutar cuando el DOM esté listo
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
