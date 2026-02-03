@@ -75,7 +75,7 @@
      * Copia el código del cupón al portapapeles
      */
     function copyCouponCode() {
-        const code = 'AHORRA20';
+        const code = 'BKHOTDOG';
         
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(code).then(() => {

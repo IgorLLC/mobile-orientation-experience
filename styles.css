@@ -1,3 +1,14 @@
+/* ================================
+   Variables de BK
+   ================================ */
+:root {
+    --bk-orange: #FF6B00;
+    --bk-red: #D62300;
+    --bk-yellow: #FFC72C;
+    --bk-brown: #512314;
+    --fire-gradient: linear-gradient(180deg, #FF0000 0%, #FF6B00 50%, #FFC72C 100%);
+}
+
 /* Reset y estilos base */
 * {
     margin: 0;
@@ -12,8 +23,26 @@ html, body {
 }
 
 body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--bk-brown);
     color: #ffffff;
+}
+
+/* ================================
+   Logo de BK
+   ================================ */
+.bk-logo {
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+.bk-logo-small {
+    width: 80px;
+    height: auto;
+}
+
+.bk-logo-large {
+    width: 100px;
+    height: auto;
 }
 
 /* ================================
@@ -35,6 +64,7 @@ body {
 @media (orientation: portrait) {
     .portrait-view {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
     }
@@ -44,18 +74,20 @@ body {
     }
     
     body {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        background: linear-gradient(180deg, var(--bk-brown) 0%, #2d1408 100%);
     }
 }
 
 /* ================================
-   Media Query: Landscape (Horizontal) - Cupón
+   Media Query: Landscape (Horizontal) - Cupon
    ================================ */
 @media (orientation: landscape) {
     .landscape-view {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+        background: var(--fire-gradient);
     }
     
     .portrait-view {
@@ -63,12 +95,127 @@ body {
     }
     
     body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--fire-gradient);
+    }
+    
+    /* Contenedor del cupon en landscape */
+    .landscape-view .coupon-container {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .landscape-view .coupon-reveal {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 30px;
+        gap: 30px;
+    }
+    
+    /* Header del cupon en landscape - lado izquierdo */
+    .landscape-view .coupon-header {
+        flex: 0 0 auto;
+        margin-bottom: 0;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .landscape-view .coupon-header .icon-gift {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .landscape-view .coupon-header h1 {
+        font-size: 1.6rem;
+        margin-top: 8px;
+        white-space: nowrap;
+    }
+    
+    /* Tarjeta del cupon en landscape */
+    .landscape-view .coupon-card {
+        flex: 1;
+        max-width: 450px;
+        min-width: 300px;
+        padding: 20px 30px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .landscape-view .coupon-content {
+        padding: 10px 0;
+    }
+    
+    .landscape-view .coupon-label {
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+    }
+    
+    .landscape-view .coupon-code {
+        padding: 12px 20px;
+        margin-bottom: 8px;
+    }
+    
+    .landscape-view .coupon-code span {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .landscape-view .coupon-discount {
+        font-size: 2rem;
+    }
+    
+    .landscape-view .coupon-footer {
+        padding-top: 12px;
+        font-size: 0.8rem;
+    }
+    
+    .landscape-view .coupon-badge {
+        width: 40px;
+        height: 40px;
+        top: -12px;
+        right: 15px;
+    }
+    
+    .landscape-view .coupon-badge .icon-percent {
+        width: 20px;
+        height: 20px;
+    }
+    
+    /* Instrucciones en landscape */
+    .landscape-view .coupon-instructions {
+        flex: 0 0 auto;
+        margin-top: 0;
+        font-size: 0.85rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+    }
+    
+    .landscape-view .bk-logo-large {
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
     }
 }
 
 /* ================================
-   Vista Portrait - Cupón
+   Vista Portrait - Mensaje Girar
    ================================ */
 .coupon-container {
     width: 100%;
@@ -117,8 +264,8 @@ body {
 .coupon-header .icon-gift {
     width: 64px;
     height: 64px;
-    color: #ffd700;
-    filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.4));
+    color: var(--bk-yellow);
+    filter: drop-shadow(0 4px 8px rgba(255, 199, 44, 0.4));
     animation: pulse 2s ease-in-out infinite;
 }
 
@@ -135,15 +282,17 @@ body {
     font-size: 2rem;
     font-weight: 700;
     margin-top: 12px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    color: var(--bk-yellow);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .coupon-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     border-radius: 20px;
     padding: 24px;
     position: relative;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border: 3px solid var(--bk-red);
     animation: slideUp 0.6s ease-out 0.4s backwards;
 }
 
@@ -158,14 +307,14 @@ body {
     }
 }
 
-/* Círculos decorativos del cupón */
+/* Circulos decorativos del cupon con colores BK */
 .coupon-card::before,
 .coupon-card::after {
     content: '';
     position: absolute;
     width: 24px;
     height: 24px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--fire-gradient);
     border-radius: 50%;
     top: 50%;
     transform: translateY(-50%);
@@ -185,12 +334,12 @@ body {
     right: 20px;
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, var(--bk-orange) 0%, var(--bk-red) 100%);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(240, 147, 251, 0.5);
+    box-shadow: 0 4px 15px rgba(214, 35, 0, 0.5);
     animation: badgePop 0.5s ease-out 0.7s backwards;
 }
 
@@ -217,15 +366,16 @@ body {
 .coupon-label {
     display: block;
     font-size: 0.9rem;
-    color: #666;
+    color: var(--bk-brown);
     margin-bottom: 12px;
+    font-weight: 500;
 }
 
 .coupon-code {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--bk-red) 0%, #a01b00 100%);
     padding: 16px 24px;
     border-radius: 12px;
     margin-bottom: 12px;
@@ -261,7 +411,7 @@ body {
     display: block;
     font-size: 2.5rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, var(--bk-orange) 0%, var(--bk-red) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -273,14 +423,15 @@ body {
     justify-content: center;
     gap: 8px;
     padding-top: 16px;
-    border-top: 2px dashed #eee;
-    color: #888;
+    border-top: 2px dashed var(--bk-yellow);
+    color: var(--bk-brown);
     font-size: 0.85rem;
 }
 
 .icon-small {
     width: 16px;
     height: 16px;
+    color: var(--bk-orange);
 }
 
 .coupon-instructions {
@@ -290,7 +441,7 @@ body {
     gap: 8px;
     margin-top: 24px;
     font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
     animation: fadeIn 0.5s ease-out 0.8s backwards;
 }
 
@@ -304,7 +455,7 @@ body {
 }
 
 /* ================================
-   Vista Landscape - Mensaje Girar
+   Vista Portrait - Mensaje Girar
    ================================ */
 .rotate-message {
     text-align: center;
@@ -320,7 +471,7 @@ body {
 .icon-phone {
     width: 80px;
     height: 80px;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--bk-yellow);
     animation: phoneRock 2s ease-in-out infinite;
 }
 
@@ -345,7 +496,7 @@ body {
 .icon-rotate {
     width: 36px;
     height: 36px;
-    color: #ffd700;
+    color: var(--bk-orange);
     animation: rotateIcon 2s linear infinite;
 }
 
@@ -362,15 +513,12 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 8px;
-    background: linear-gradient(90deg, #ffd700, #ffaa00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--bk-yellow);
 }
 
 .rotate-message p {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 24px;
 }
 
@@ -381,7 +529,7 @@ body {
 .icon-chevrons {
     width: 32px;
     height: 32px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--bk-orange);
     transform: rotate(-90deg);
 }
 
@@ -395,7 +543,7 @@ body {
 }
 
 /* ================================
-   Overlay de Transición
+   Overlay de Transicion
    ================================ */
 .transition-overlay {
     position: fixed;
@@ -403,7 +551,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(81, 35, 20, 0.9);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -422,7 +570,7 @@ body {
     width: 40px;
     height: 40px;
     border: 3px solid rgba(255, 255, 255, 0.2);
-    border-top-color: #ffd700;
+    border-top-color: var(--bk-orange);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -451,22 +599,27 @@ body {
     .coupon-discount {
         font-size: 2rem;
     }
+    
+    .bk-logo-small {
+        width: 60px;
+    }
 }
 
 /* Mensaje para desktop */
 @media (min-width: 1024px) {
     body::before {
-        content: 'Esta experiencia está diseñada para dispositivos móviles';
+        content: 'Esta experiencia esta disenada para dispositivos moviles';
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.9);
+        background: var(--bk-brown);
         padding: 30px 40px;
         border-radius: 12px;
         font-size: 1.1rem;
         text-align: center;
         z-index: 9999;
-        color: rgba(255, 255, 255, 0.8);
+        color: var(--bk-yellow);
+        border: 2px solid var(--bk-orange);
     }
 }

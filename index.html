@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <title>Descubre tu Cupón</title>
+    <title>BK - Descubre tu Cupon</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -13,6 +13,7 @@
 <body>
     <!-- Vista Vertical (Portrait) - Mensaje para girar -->
     <div class="portrait-view">
+        <img src="logo.svg" alt="Burger King" class="bk-logo bk-logo-small">
         <div class="rotate-message">
             <div class="rotate-icon-container">
                 <i data-lucide="smartphone" class="icon-phone"></i>
@@ -20,21 +21,22 @@
                     <i data-lucide="rotate-ccw" class="icon-rotate"></i>
                 </div>
             </div>
-            <h2>Gira tu teléfono</h2>
-            <p>para descubrir tu cupón exclusivo</p>
+            <h2>Gira tu telefono</h2>
+            <p>para descubrir tu cupon exclusivo</p>
             <div class="hint-animation">
                 <i data-lucide="chevrons-down" class="icon-chevrons"></i>
             </div>
         </div>
     </div>
 
-    <!-- Vista Horizontal (Landscape) - Muestra el Cupón -->
+    <!-- Vista Horizontal (Landscape) - Muestra el Cupon -->
     <div class="landscape-view">
+        <img src="logo.svg" alt="Burger King" class="bk-logo bk-logo-large">
         <div class="coupon-container">
             <div class="coupon-reveal">
                 <div class="coupon-header">
                     <i data-lucide="gift" class="icon-gift"></i>
-                    <h1>¡Felicidades!</h1>
+                    <h1>Felicidades!</h1>
                 </div>
                 
                 <div class="coupon-card">
@@ -42,9 +44,9 @@
                         <i data-lucide="percent" class="icon-percent"></i>
                     </div>
                     <div class="coupon-content">
-                        <span class="coupon-label">Tu cupón de descuento</span>
+                        <span class="coupon-label">Tu cupon de descuento</span>
                         <div class="coupon-code">
-                            <span>AHORRA20</span>
+                            <span>BKHOTDOG</span>
                             <button class="copy-btn" id="copyBtn">
                                 <i data-lucide="copy" class="icon-copy"></i>
                             </button>
@@ -53,19 +55,19 @@
                     </div>
                     <div class="coupon-footer">
                         <i data-lucide="clock" class="icon-small"></i>
-                        <span>Válido por 24 horas</span>
+                        <span>Valido por 24 horas</span>
                     </div>
                 </div>
                 
                 <p class="coupon-instructions">
                     <i data-lucide="shopping-cart" class="icon-small"></i>
-                    Usa este código en tu próxima compra
+                    Usa este codigo en tu proxima compra
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- Overlay de transición -->
+    <!-- Overlay de transicion -->
     <div class="transition-overlay" id="transitionOverlay">
         <div class="transition-spinner"></div>
     </div>
