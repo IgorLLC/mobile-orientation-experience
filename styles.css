@@ -200,7 +200,7 @@ body.is-desktop-mode .desktop-view {
     }
 }
 
-/* Texto Portrait - debajo de la hamburguesa, con espacio */
+/* Texto Portrait - debajo de la hamburguesa, con más espacio */
 .portrait-content .text-container {
     width: 100%;
     max-width: 90vw;
@@ -209,13 +209,13 @@ body.is-desktop-mode .desktop-view {
     justify-content: center;
     align-items: center;
     flex: 0 0 auto;
-    padding-top: 5vh;
+    margin-top: 8vh;
     padding-bottom: 2vh;
 }
 
 .portrait-content .text-image {
     width: clamp(240px, 85vw, 420px);
-    max-height: 18vh;
+    max-height: 16vh;
     height: auto;
     object-fit: contain;
 }
@@ -405,15 +405,36 @@ body.is-desktop-mode .desktop-view {
     z-index: 100;
 }
 
+/* Patrón checker en la parte inferior del desktop */
+.desktop-view::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-image: 
+        linear-gradient(45deg, var(--bk-cream) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--bk-cream) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--bk-cream) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--bk-cream) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    z-index: 1;
+}
+
 .desktop-view .desktop-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 40px;
+    padding-bottom: 80px;
     max-width: 500px;
     width: 100%;
     animation: fadeInUp 0.8s ease-out;
+    position: relative;
+    z-index: 2;
 }
 
 @keyframes fadeInUp {
@@ -544,6 +565,26 @@ body.is-desktop-mode .desktop-view {
     background: var(--bk-cream);
     border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+/* Borde checker alrededor del QR */
+.desktop-view .qr-container::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    background-image: 
+        linear-gradient(45deg, var(--bk-cream) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--bk-cream) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--bk-cream) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--bk-cream) 75%);
+    background-size: 12px 12px;
+    background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
+    border-radius: 20px;
+    z-index: -1;
 }
 
 /* QRCode.js genera img Y canvas - ocultar el canvas, mostrar solo img */
