@@ -81,54 +81,33 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- QRCode.js para generar QR dinámico -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
-    <!-- Banner de navegador desactualizado (móvil) -->
-    <div class="browser-warning hidden" id="browserWarning">
-        <div class="warning-content">
-            <i data-lucide="alert-triangle" class="warning-icon"></i>
-            <div class="warning-text">
-                <strong>Navegador desactualizado</strong>
-                <span id="browserVersionInfo">Chrome 95 - Recomendamos actualizar</span>
-            </div>
-            <button class="warning-dismiss" id="dismissWarning">
-                <i data-lucide="x"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- Modal de navegador obsoleto (bloquea uso) -->
-    <div class="browser-obsolete-modal hidden" id="browserObsoleteModal">
-        <div class="modal-content">
-            <i data-lucide="alert-octagon" class="modal-icon"></i>
-            <h2>Navegador no compatible</h2>
-            <p>Tu navegador (<span id="obsoleteBrowserName">Safari 12</span>) es muy antiguo y no soporta las funciones necesarias.</p>
-            <p class="modal-recommendation">Actualiza a la ultima version para continuar.</p>
-        </div>
-    </div>
-
-    <!-- Vista Desktop/Tablet con QR -->
+    <!-- Vista Desktop/Tablet - Mensaje Solo Móviles -->
     <div class="desktop-view hidden" id="desktopView">
         <div class="desktop-container">
             <img src="logo.svg" alt="Burger King" class="bk-logo bk-logo-desktop">
-            <div class="desktop-content">
-                <div class="qr-section">
-                    <div class="qr-icon-container">
-                        <i data-lucide="smartphone" class="qr-phone-icon"></i>
+            
+            <div class="desktop-message">
+                <!-- Icono de smartphone animado -->
+                <div class="phone-icon-wrapper">
+                    <div class="phone-icon-animated">
+                        <i data-lucide="smartphone" class="desktop-phone-icon"></i>
                     </div>
-                    <h2>Escanea con tu movil</h2>
-                    <p>para descubrir tu cupon exclusivo</p>
-                    <div class="qr-container" id="qrContainer"></div>
+                    <div class="phone-glow"></div>
                 </div>
-                <div class="device-info-section">
-                    <span class="info-label">Detectamos que estas usando:</span>
-                    <div class="device-details" id="deviceDetails">
-                        <span class="device-type" id="detectedDevice">Desktop</span>
-                        <span class="device-os" id="detectedOS">Windows 11</span>
-                        <span class="device-browser" id="detectedBrowser">Chrome 130</span>
-                    </div>
+                
+                <h2 class="desktop-title">Esta experiencia es solo para moviles</h2>
+                <p class="desktop-subtitle">Abre este enlace desde tu iPhone o Android</p>
+                
+                <div class="url-box">
+                    <i data-lucide="link" class="url-icon"></i>
+                    <span class="url-text">mobile-orientation-experience.vercel.app</span>
+                </div>
+                
+                <div class="mobile-hint">
+                    <i data-lucide="scan-line" class="hint-icon"></i>
+                    <span>Escanea o copia el enlace</span>
                 </div>
             </div>
         </div>
