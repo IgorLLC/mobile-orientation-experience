@@ -23,74 +23,43 @@ function isMobileDevice() {
 }
 
 /**
- * Panel de debug visible en pantalla
+ * Genera el código QR
  */
-function showDebugPanel() {
-    const ua = navigator.userAgent;
-    const isMobile = isMobileDevice();
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const screenW = window.screen.width;
-    const screenH = window.screen.height;
+function generateQR() {
+    const qrContainer = document.getElementById('qrContainer');
+    if (!qrContainer) return;
     
-    // Crear panel de debug
-    const debugPanel = document.createElement('div');
-    debugPanel.id = 'debugPanel';
-    debugPanel.style.cssText = `
-        position: fixed;
-        bottom: 10px;
-        left: 10px;
-        right: 10px;
-        background: rgba(0,0,0,0.9);
-        color: #0f0;
-        font-family: monospace;
-        font-size: 11px;
-        padding: 15px;
-        border-radius: 8px;
-        z-index: 99999;
-        max-height: 200px;
-        overflow-y: auto;
-        border: 2px solid ${isMobile ? '#0f0' : '#f00'};
-    `;
+    // Verificar que QRCode esté disponible
+    if (typeof QRCode === 'undefined') {
+        console.warn('[BK Coupon] QRCode library not loaded');
+        qrContainer.innerHTML = '<p style="color:#512314;padding:20px;">QR no disponible</p>';
+        return;
+    }
     
-    debugPanel.innerHTML = `
-        <div style="margin-bottom:8px;font-weight:bold;color:${isMobile ? '#0f0' : '#f00'}">
-            RESULTADO: ${isMobile ? 'MOBILE ✓' : 'NO MOBILE ✗'}
-        </div>
-        <div style="margin-bottom:5px"><strong>User Agent:</strong></div>
-        <div style="word-break:break-all;color:#fff;margin-bottom:10px;font-size:10px">${ua}</div>
-        <div><strong>Window:</strong> ${width} x ${height}</div>
-        <div><strong>Screen:</strong> ${screenW} x ${screenH}</div>
-        <div><strong>DPR:</strong> ${window.devicePixelRatio}</div>
-        <div><strong>Platform:</strong> ${navigator.platform}</div>
-        <div><strong>MaxTouchPoints:</strong> ${navigator.maxTouchPoints}</div>
-        <div style="margin-top:10px">
-            <strong>Tests:</strong><br>
-            iPhone/iPod: ${/iPhone|iPod/i.test(ua) ? '✓' : '✗'}<br>
-            Android Mobile: ${/Android.*Mobile/i.test(ua) ? '✓' : '✗'}<br>
-            Macintosh: ${/Macintosh/i.test(ua) ? '✓' : '✗'}<br>
-            Windows: ${/Windows/i.test(ua) ? '✓' : '✗'}
-        </div>
-        <button onclick="this.parentElement.remove()" style="
-            margin-top:10px;
-            background:#333;
-            color:#fff;
-            border:1px solid #666;
-            padding:5px 15px;
-            border-radius:4px;
-            cursor:pointer;
-        ">Cerrar</button>
-    `;
+    // Limpiar contenedor
+    qrContainer.innerHTML = '';
     
-    document.body.appendChild(debugPanel);
+    // Generar QR con la URL actual
+    const currentURL = window.location.href;
+    
+    try {
+        new QRCode(qrContainer, {
+            text: currentURL,
+            width: 180,
+            height: 180,
+            colorDark: '#512314',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+        });
+        console.log('[BK Coupon] QR generated for:', currentURL);
+    } catch (err) {
+        console.error('[BK Coupon] Error generating QR:', err);
+        qrContainer.innerHTML = '<p style="color:#512314;padding:20px;">Error QR</p>';
+    }
 }
 
 // Exponer para debug
 window.isMobileDevice = isMobileDevice;
-window.showDebugPanel = showDebugPanel;
-
-// Mostrar panel de debug automáticamente
-document.addEventListener('DOMContentLoaded', showDebugPanel);
 
 /**
  * ================================
@@ -209,7 +178,7 @@ document.addEventListener('DOMContentLoaded', showDebugPanel);
     }
 
     /**
-     * Muestra la vista desktop/tablet con mensaje
+     * Muestra la vista desktop/tablet con QR
      */
     function showDesktopView() {
         if (currentViewMode === 'desktop') return;
@@ -230,6 +199,9 @@ document.addEventListener('DOMContentLoaded', showDebugPanel);
         if (desktopView) {
             desktopView.classList.remove('hidden');
         }
+        
+        // Generar QR
+        generateQR();
         
         // Re-inicializar iconos
         if (typeof lucide !== 'undefined') {

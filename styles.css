@@ -926,13 +926,34 @@ body.is-desktop-mode .desktop-view {
     letter-spacing: 0.5px;
 }
 
+/* QR Code */
+.desktop-view .qr-wrapper {
+    margin: 30px 0;
+    animation: textFadeIn 0.8s ease-out 0.6s backwards;
+}
+
+.desktop-view .qr-container {
+    display: inline-block;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 4px var(--bk-orange);
+}
+
+.desktop-view .qr-container img,
+.desktop-view .qr-container canvas {
+    display: block !important;
+    width: 180px !important;
+    height: 180px !important;
+}
+
 /* Hint inferior */
 .desktop-view .mobile-hint {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
     animation: textFadeIn 0.8s ease-out 0.8s backwards;
 }

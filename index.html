@@ -81,9 +81,11 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- QRCode.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
-    <!-- Vista Desktop/Tablet - Mensaje Solo Móviles -->
+    <!-- Vista Desktop/Tablet - Mensaje Solo Móviles con QR -->
     <div class="desktop-view hidden" id="desktopView">
         <div class="desktop-container">
             <img src="logo.svg" alt="Burger King" class="bk-logo bk-logo-desktop">
@@ -97,17 +99,17 @@
                     <div class="phone-glow"></div>
                 </div>
                 
-                <h2 class="desktop-title">Esta experiencia es solo para moviles</h2>
-                <p class="desktop-subtitle">Abre este enlace desde tu iPhone o Android</p>
+                <h2 class="desktop-title">Escanea con tu movil</h2>
+                <p class="desktop-subtitle">para descubrir tu cupon exclusivo</p>
                 
-                <div class="url-box">
-                    <i data-lucide="link" class="url-icon"></i>
-                    <span class="url-text">mobile-orientation-experience.vercel.app</span>
+                <!-- QR Code -->
+                <div class="qr-wrapper">
+                    <div class="qr-container" id="qrContainer"></div>
                 </div>
                 
                 <div class="mobile-hint">
                     <i data-lucide="scan-line" class="hint-icon"></i>
-                    <span>Escanea o copia el enlace</span>
+                    <span>Abre la camara y escanea el codigo QR</span>
                 </div>
             </div>
         </div>
