@@ -113,7 +113,6 @@ window.isMobileDevice = isMobileDevice;
     // Elementos del DOM
     const transitionOverlay = document.getElementById('transitionOverlay');
     const copyBtn = document.getElementById('copyBtn');
-    const swipeIndicator = document.getElementById('swipeIndicator');
     const desktopView = document.getElementById('desktopView');
     const portraitView = document.querySelector('.portrait-view');
     const landscapeView = document.querySelector('.landscape-view');
@@ -129,32 +128,6 @@ window.isMobileDevice = isMobileDevice;
     function updateViewportHeight() {
         const vh = window.innerHeight;
         document.documentElement.style.setProperty('--real-vh', `${vh}px`);
-    }
-
-    /**
-     * Oculta el indicador de swipe cuando el usuario hace scroll
-     */
-    function hideSwipeIndicator() {
-        if (swipeIndicator && !swipeIndicator.classList.contains('hidden')) {
-            swipeIndicator.classList.add('hidden');
-        }
-    }
-    
-    /**
-     * Muestra el indicador de swipe
-     */
-    function showSwipeIndicator() {
-        if (swipeIndicator) {
-            swipeIndicator.classList.remove('hidden');
-        }
-    }
-    
-    /**
-     * Resetea el estado cuando vuelve a portrait
-     */
-    function resetScrollState() {
-        window.scrollTo(0, 0);
-        showSwipeIndicator();
     }
 
     /**
@@ -279,10 +252,6 @@ window.isMobileDevice = isMobileDevice;
                 
                 currentOrientation = newOrientation;
                 updateViewportHeight();
-                
-                if (newOrientation === 'portrait') {
-                    resetScrollState();
-                }
             }
         }, 50);
     }
@@ -372,12 +341,6 @@ window.isMobileDevice = isMobileDevice;
         if (copyBtn) {
             copyBtn.addEventListener('click', copyCouponCode);
         }
-        
-        window.addEventListener('scroll', () => {
-            if (getOrientation() === 'landscape' && window.scrollY > 50) {
-                hideSwipeIndicator();
-            }
-        }, { passive: true });
     }
 
     /**

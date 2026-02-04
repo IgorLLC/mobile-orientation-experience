@@ -34,42 +34,14 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
     background: var(--bk-brown);
     color: #ffffff;
-    /* Evitar scroll en iOS */
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: none;
-}
-
-/* Portrait: fixed, sin scroll */
-@media (orientation: portrait) {
-    body:not(.is-desktop-mode) {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        overflow: hidden;
-    }
-}
-
-/* Landscape: permite scroll para efecto Safari */
-@media (orientation: landscape) {
-    body:not(.is-desktop-mode) {
-        position: relative !important;
-        height: auto !important;
-        min-height: 100vh;
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
-    }
-}
-
-/* Desktop mode: siempre fixed */
-body.is-desktop-mode {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
 }
 
 /* ================================
@@ -126,106 +98,24 @@ body.is-desktop-mode .desktop-view {
 }
 
 /* ================================
-   Media Query: Landscape (Horizontal) - TRUCO SCROLL SAFARI
+   Media Query: Landscape (Horizontal) - Vista simple
    Solo aplica en modo móvil
    ================================ */
 @media (orientation: landscape) {
-    body:not(.is-desktop-mode) {
-        width: 100vw;
-        height: auto;
-        min-height: 100vh;
-        overflow-x: hidden;
-        overflow-y: auto; /* Permitir scroll vertical */
-        position: relative;
-    }
-    
     body:not(.is-desktop-mode) .landscape-view {
-        display: flex;
-        flex-direction: column; /* Columna para apilar spacer + contenido */
-        justify-content: flex-start;
-        align-items: stretch;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
         width: 100vw;
-        min-height: 150vh; /* Más alto que la pantalla para forzar scroll */
-        padding: 0;
-        margin: 0;
-        gap: 0;
-        overflow: visible;
+        height: 100vh;
+        height: 100dvh;
         background: var(--fire-gradient);
-        position: relative; /* No fixed para permitir scroll */
-    }
-    
-    /* Spacer superior - empuja el contenido hacia abajo */
-    body:not(.is-desktop-mode) .landscape-spacer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-end;
-        width: 100%;
-        height: 50vh;
-        flex-shrink: 0;
-        padding-bottom: 30px;
-    }
-    
-    /* Indicador de swipe */
-    .swipe-indicator {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        animation: fadeInUp 0.5s ease-out;
-    }
-    
-    .swipe-arrow {
-        width: 48px;
-        height: 48px;
-        color: var(--bk-yellow);
-        animation: bounceUp 1s ease-in-out infinite;
-        filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
-    }
-    
-    .swipe-text {
-        font-size: 1rem;
-        color: rgba(255, 255, 255, 0.9);
-        font-weight: 500;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
-    
-    @keyframes bounceUp {
-        0%, 100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-15px);
-        }
-    }
-    
-    @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    /* Ocultar indicador después del scroll */
-    .swipe-indicator.hidden {
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-    }
-    
-    /* Contenedor principal del cupón */
-    body:not(.is-desktop-mode) .landscape-content {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: stretch;
-        width: 100%;
-        min-height: 100vh;
-        flex-shrink: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
     }
     
     body:not(.is-desktop-mode) .portrait-view {
@@ -236,47 +126,22 @@ body.is-desktop-mode .desktop-view {
         background: var(--fire-gradient);
     }
     
-    /* Seccion del logo - lado izquierdo */
-    body:not(.is-desktop-mode) .logo-section {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 30%;
-        min-width: 30%;
-        min-height: 100vh;
-        padding: 20px;
-        background: rgba(0, 0, 0, 0.2);
-    }
-    
-    .logo-section .bk-logo-large {
-        display: block;
-        width: 80%;
-        max-width: 140px;
-        height: auto;
-    }
-    
-    /* Cupon ocupa el resto */
-    .landscape-content .coupon-container {
-        flex: 1;
-        width: 70%;
-        max-width: none;
-        min-height: 100vh;
+    /* Cupon centrado */
+    .landscape-view .coupon-container {
+        width: 100%;
+        max-width: 400px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 10px 15px;
-        overflow: hidden;
+        padding: 15px;
     }
     
     .landscape-view .coupon-reveal {
         width: 100%;
-        max-width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        height: 100%;
     }
     
     .landscape-view .coupon-header {
@@ -284,64 +149,64 @@ body.is-desktop-mode .desktop-view {
     }
     
     .landscape-view .coupon-header .icon-gift {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
     }
     
     .landscape-view .coupon-header h1 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         margin-top: 5px;
     }
     
     .landscape-view .coupon-card {
         width: 100%;
-        max-width: 320px;
-        padding: 15px 20px;
+        max-width: 300px;
+        padding: 12px 16px;
     }
     
     .landscape-view .coupon-content {
-        padding: 8px 0;
+        padding: 6px 0;
     }
     
     .landscape-view .coupon-label {
-        font-size: 0.75rem;
-        margin-bottom: 6px;
+        font-size: 0.7rem;
+        margin-bottom: 5px;
     }
     
     .landscape-view .coupon-code {
-        padding: 10px 16px;
-        margin-bottom: 6px;
+        padding: 8px 14px;
+        margin-bottom: 5px;
     }
     
     .landscape-view .coupon-code span {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         letter-spacing: 2px;
     }
     
     .landscape-view .coupon-discount {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
     }
     
     .landscape-view .coupon-footer {
-        padding-top: 8px;
-        font-size: 0.7rem;
+        padding-top: 6px;
+        font-size: 0.65rem;
     }
     
     .landscape-view .coupon-badge {
-        width: 32px;
-        height: 32px;
-        top: -10px;
-        right: 12px;
+        width: 28px;
+        height: 28px;
+        top: -8px;
+        right: 10px;
     }
     
     .landscape-view .coupon-badge .icon-percent {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
     }
     
     .landscape-view .coupon-instructions {
-        margin-top: 10px;
-        font-size: 0.75rem;
+        margin-top: 8px;
+        font-size: 0.7rem;
     }
 }
 
@@ -367,11 +232,6 @@ body.is-desktop-mode .desktop-view {
     width: 100%;
     max-width: 140px;
     height: auto;
-}
-
-/* Ocultar logo-section en portrait */
-.logo-section {
-    display: none;
 }
 
 /* ================================
@@ -1187,58 +1047,41 @@ body.is-desktop-mode .desktop-view {
    ================================ */
 @media (orientation: landscape) and (max-height: 400px) {
     .landscape-view .coupon-header .icon-gift {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
     }
     
     .landscape-view .coupon-header h1 {
-        font-size: 1.1rem;
-        margin-top: 4px;
+        font-size: 1rem;
+        margin-top: 3px;
     }
     
     .landscape-view .coupon-card {
-        padding: 12px 16px;
-        max-width: 280px;
+        padding: 10px 14px;
+        max-width: 260px;
     }
     
     .landscape-view .coupon-code {
-        padding: 8px 12px;
+        padding: 6px 10px;
     }
     
     .landscape-view .coupon-code span {
-        font-size: 1.1rem;
+        font-size: 1rem;
         letter-spacing: 1px;
     }
     
     .landscape-view .coupon-discount {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
     
     .landscape-view .coupon-footer {
-        padding-top: 6px;
-        font-size: 0.65rem;
+        padding-top: 5px;
+        font-size: 0.6rem;
     }
     
     .landscape-view .coupon-instructions {
-        font-size: 0.65rem;
-        margin-top: 8px;
-    }
-    
-    .logo-section .bk-logo-large {
-        max-width: 100px;
-    }
-    
-    .landscape-spacer {
-        height: 40vh;
-    }
-    
-    .swipe-arrow {
-        width: 36px;
-        height: 36px;
-    }
-    
-    .swipe-text {
-        font-size: 0.85rem;
+        font-size: 0.6rem;
+        margin-top: 6px;
     }
 }
 

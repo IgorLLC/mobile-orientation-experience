@@ -34,15 +34,6 @@
             background: #512314;
         }
         
-        /* Ocultar spacer en portrait */
-        .landscape-spacer {
-            display: none;
-        }
-        @media (orientation: landscape) {
-            body:not(.is-desktop-mode) .landscape-spacer {
-                display: block;
-            }
-        }
     </style>
     
     <!-- Lucide Icons -->
@@ -99,56 +90,39 @@
         </div>
     </div>
 
-    <!-- Vista Horizontal (Landscape) - Con scroll trick para Safari -->
+    <!-- Vista Horizontal (Landscape) - Cupón directo -->
     <div class="landscape-view">
-        <!-- Spacer superior con indicador de swipe -->
-        <div class="landscape-spacer" id="landscapeSpacer">
-            <div class="swipe-indicator" id="swipeIndicator">
-                <i data-lucide="chevrons-up" class="swipe-arrow"></i>
-                <span class="swipe-text">Desliza hacia arriba</span>
-            </div>
-        </div>
-        
-        <!-- Contenido principal del cupón -->
-        <div class="landscape-content" id="landscapeContent">
-            <!-- Logo Section - Izquierda -->
-            <div class="logo-section">
-                <img src="logo.svg" alt="Burger King" class="bk-logo bk-logo-large">
-            </div>
-            
-            <!-- Cupon Section - Derecha -->
-            <div class="coupon-container">
-                <div class="coupon-reveal">
-                    <div class="coupon-header">
-                        <i data-lucide="gift" class="icon-gift"></i>
-                        <h1>Felicidades!</h1>
-                    </div>
-                    
-                    <div class="coupon-card">
-                        <div class="coupon-badge">
-                            <i data-lucide="percent" class="icon-percent"></i>
-                        </div>
-                        <div class="coupon-content">
-                            <span class="coupon-label">Tu cupon de descuento</span>
-                            <div class="coupon-code">
-                                <span>BKHOTDOG</span>
-                                <button class="copy-btn" id="copyBtn">
-                                    <i data-lucide="copy" class="icon-copy"></i>
-                                </button>
-                            </div>
-                            <span class="coupon-discount">20% OFF</span>
-                        </div>
-                        <div class="coupon-footer">
-                            <i data-lucide="clock" class="icon-small"></i>
-                            <span>Valido por 24 horas</span>
-                        </div>
-                    </div>
-                    
-                    <p class="coupon-instructions">
-                        <i data-lucide="shopping-cart" class="icon-small"></i>
-                        Usa este codigo en tu proxima compra
-                    </p>
+        <div class="coupon-container">
+            <div class="coupon-reveal">
+                <div class="coupon-header">
+                    <i data-lucide="gift" class="icon-gift"></i>
+                    <h1>Felicidades!</h1>
                 </div>
+                
+                <div class="coupon-card">
+                    <div class="coupon-badge">
+                        <i data-lucide="percent" class="icon-percent"></i>
+                    </div>
+                    <div class="coupon-content">
+                        <span class="coupon-label">Tu cupon de descuento</span>
+                        <div class="coupon-code">
+                            <span>BKHOTDOG</span>
+                            <button class="copy-btn" id="copyBtn">
+                                <i data-lucide="copy" class="icon-copy"></i>
+                            </button>
+                        </div>
+                        <span class="coupon-discount">20% OFF</span>
+                    </div>
+                    <div class="coupon-footer">
+                        <i data-lucide="clock" class="icon-small"></i>
+                        <span>Valido por 24 horas</span>
+                    </div>
+                </div>
+                
+                <p class="coupon-instructions">
+                    <i data-lucide="shopping-cart" class="icon-small"></i>
+                    Usa este codigo en tu proxima compra
+                </p>
             </div>
         </div>
     </div>
