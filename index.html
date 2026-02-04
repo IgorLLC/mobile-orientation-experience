@@ -34,9 +34,9 @@
             background: #512314;
         }
         
-        /* Portrait: fixed, sin scroll */
+        /* Portrait: fixed, sin scroll - solo modo móvil */
         @media (orientation: portrait) {
-            html, body {
+            body:not(.is-desktop-mode) {
                 height: 100%;
                 height: 100vh;
                 overflow: hidden;
@@ -46,9 +46,9 @@
             }
         }
         
-        /* Landscape: permite scroll para truco Safari */
+        /* Landscape: permite scroll para truco Safari - solo modo móvil */
         @media (orientation: landscape) {
-            html, body {
+            body:not(.is-desktop-mode) {
                 height: auto;
                 min-height: 100vh;
                 overflow-x: hidden;
@@ -57,12 +57,23 @@
             }
         }
         
-        /* Ocultar spacer en portrait */
+        /* Desktop mode: siempre fixed y sin scroll */
+        body.is-desktop-mode {
+            height: 100vh;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        
+        /* Ocultar spacer en portrait - solo modo móvil */
         .landscape-spacer {
             display: none;
         }
         @media (orientation: landscape) {
-            .landscape-spacer {
+            body:not(.is-desktop-mode) .landscape-spacer {
                 display: block;
             }
         }
@@ -71,7 +82,7 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- QRCode.js para generar QR dinámico -->
-    <script src="https://unpkg.com/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
     <!-- Banner de navegador desactualizado (móvil) -->
