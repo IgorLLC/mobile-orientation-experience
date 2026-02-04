@@ -167,24 +167,24 @@ body.is-desktop-mode .desktop-view {
     width: 100%;
     height: 100%;
     padding: 5vw;
-    padding-top: 8vh;
-    padding-bottom: 15vh; /* Espacio para el patron cuadriculado */
+    padding-top: 5vh;
+    padding-bottom: 12vh; /* Espacio para el patron cuadriculado */
+    gap: clamp(20px, 5vh, 50px); /* Espacio entre hamburguesa y texto */
 }
 
 /* Hamburguesa Portrait - rotada 90 grados, arriba */
 .portrait-burger {
-    width: clamp(180px, 55vw, 320px);
+    width: clamp(150px, 45vw, 260px);
     flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: auto;
 }
 
 .portrait-burger .burger-image {
     width: 100%;
     height: auto;
-    max-height: 42vh;
+    max-height: 35vh;
     object-fit: contain;
     transform: rotate(90deg);
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
@@ -208,13 +208,12 @@ body.is-desktop-mode .desktop-view {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: auto;
-    margin-bottom: 5vh;
+    flex: 0 0 auto;
 }
 
 .portrait-content .text-image {
     width: clamp(220px, 85vw, 400px);
-    max-height: 22vh;
+    max-height: 25vh;
     height: auto;
     object-fit: contain;
 }
@@ -301,7 +300,7 @@ body.is-desktop-mode .desktop-view {
     min-width: 0; /* Permite que flexbox reduzca */
 }
 
-/* Hamburguesa Landscape - NO debe tocar el texto */
+/* Hamburguesa Landscape - más grande como referencia */
 .landscape-burger {
     width: 100%;
     display: flex;
@@ -310,9 +309,9 @@ body.is-desktop-mode .desktop-view {
 }
 
 .landscape-burger .burger-image {
-    width: clamp(150px, 38vw, 380px);
+    width: clamp(220px, 55vw, 550px);
     height: auto;
-    max-height: 80vh;
+    max-height: 90vh;
     object-fit: contain;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
     animation: burgerPulse 3s ease-in-out infinite;
@@ -692,8 +691,8 @@ body.is-desktop-mode .desktop-view {
     }
     
     .landscape-burger .burger-image {
-        width: clamp(120px, 35vw, 250px);
-        max-height: 75vh;
+        width: clamp(180px, 48vw, 350px);
+        max-height: 85vh;
     }
 }
 
@@ -712,8 +711,8 @@ body.is-desktop-mode .desktop-view {
     }
     
     .landscape-burger .burger-image {
-        width: clamp(150px, 38vw, 320px);
-        max-height: 80vh;
+        width: clamp(220px, 52vw, 450px);
+        max-height: 88vh;
     }
 }
 
@@ -726,7 +725,8 @@ body.is-desktop-mode .desktop-view {
     }
     
     .landscape-burger .burger-image {
-        width: clamp(180px, 42vw, 400px);
+        width: clamp(280px, 58vw, 580px);
+        max-height: 92vh;
     }
 }
 
