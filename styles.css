@@ -285,11 +285,11 @@ body.is-desktop-mode .desktop-view {
     object-fit: contain;
     cursor: pointer;
     transition: transform 0.2s ease;
-    transform: rotate(-90deg);
+    transform: rotate(90deg);
 }
 
 .landscape-text-image:active {
-    transform: rotate(-90deg) scale(0.98);
+    transform: rotate(90deg) scale(0.98);
 }
 
 /* Lado derecho - Hamburguesa */
@@ -785,13 +785,13 @@ body.is-desktop-mode .desktop-view {
 
 @keyframes copyPulse {
     0% {
-        transform: rotate(-90deg) scale(1);
+        transform: rotate(90deg) scale(1);
     }
     50% {
-        transform: rotate(-90deg) scale(1.05);
+        transform: rotate(90deg) scale(1.05);
     }
     100% {
-        transform: rotate(-90deg) scale(1);
+        transform: rotate(90deg) scale(1);
     }
 }
 
