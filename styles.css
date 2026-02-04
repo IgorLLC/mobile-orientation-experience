@@ -454,14 +454,14 @@ body.is-desktop-mode .desktop-view {
     justify-content: center;
     padding: 20px;
     padding-bottom: 12vh; /* Espacio para el cuadriculado inferior */
-    max-width: 450px;
+    max-width: 550px;
     width: 100%;
     height: 100%;
     max-height: 100vh;
     animation: fadeInUp 0.5s ease-out;
     position: relative;
     z-index: 1;
-    gap: 20px;
+    gap: 30px;
 }
 
 @keyframes fadeInUp {
@@ -485,9 +485,9 @@ body.is-desktop-mode .desktop-view {
 }
 
 .desktop-burger-image {
-    width: 220px;
+    width: 320px;
     height: auto;
-    max-height: 28vh;
+    max-height: 35vh;
     object-fit: contain;
     transform: rotate(90deg);
     filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.3));
@@ -513,9 +513,9 @@ body.is-desktop-mode .desktop-view {
 
 .desktop-text-image {
     width: 100%;
-    max-width: 320px;
+    max-width: 420px;
     height: auto;
-    max-height: 12vh;
+    max-height: 15vh;
     object-fit: contain;
 }
 
