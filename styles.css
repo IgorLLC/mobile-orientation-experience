@@ -200,7 +200,7 @@ body.is-desktop-mode .desktop-view {
     }
 }
 
-/* Texto Portrait - debajo de la hamburguesa */
+/* Texto Portrait - debajo de la hamburguesa, con espacio */
 .portrait-content .text-container {
     width: 100%;
     max-width: 90vw;
@@ -209,12 +209,13 @@ body.is-desktop-mode .desktop-view {
     justify-content: center;
     align-items: center;
     flex: 0 0 auto;
-    padding: 2vh 0;
+    padding-top: 5vh;
+    padding-bottom: 2vh;
 }
 
 .portrait-content .text-image {
     width: clamp(240px, 85vw, 420px);
-    max-height: 20vh;
+    max-height: 18vh;
     height: auto;
     object-fit: contain;
 }
