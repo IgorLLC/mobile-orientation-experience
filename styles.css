@@ -44,6 +44,15 @@ body {
 }
 
 /* ================================
+   Imágenes - Reglas globales
+   ================================ */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ================================
    Ocultar ambas vistas por defecto
    ================================ */
 .portrait-view,
@@ -76,8 +85,7 @@ body.is-desktop-mode .desktop-view {
 }
 
 /* ================================
-   Media Query: Portrait (Vertical) - Mensaje girar
-   Solo aplica en modo móvil
+   Media Query: Portrait (Vertical)
    ================================ */
 @media (orientation: portrait) {
     body:not(.is-desktop-mode) .portrait-view {
@@ -99,7 +107,6 @@ body.is-desktop-mode .desktop-view {
 
 /* ================================
    Media Query: Landscape (Horizontal)
-   Solo aplica en modo móvil
    ================================ */
 @media (orientation: landscape) {
     body:not(.is-desktop-mode) .landscape-view {
@@ -159,19 +166,25 @@ body.is-desktop-mode .desktop-view {
     justify-content: center;
     width: 100%;
     height: 100%;
-    padding: 20px;
-    gap: 30px;
+    padding: 5vw;
+    gap: clamp(15px, 4vh, 40px);
 }
 
 /* Hamburguesa Portrait - rotada 90 grados */
 .portrait-burger {
-    max-width: 70%;
+    width: clamp(150px, 50vw, 280px);
+    max-height: 45vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     animation: burgerFloat 3s ease-in-out infinite;
 }
 
 .portrait-burger .burger-image {
     width: 100%;
     height: auto;
+    max-height: 45vh;
+    object-fit: contain;
     transform: rotate(90deg);
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
 }
@@ -187,14 +200,19 @@ body.is-desktop-mode .desktop-view {
 
 /* Texto Portrait */
 .portrait-content .text-container {
-    max-width: 90%;
+    width: 100%;
+    max-width: 90vw;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .portrait-content .text-image {
-    width: 100%;
-    max-width: 350px;
+    width: clamp(200px, 80vw, 350px);
+    max-height: 25vh;
     height: auto;
+    object-fit: contain;
 }
 
 /* ================================
@@ -219,31 +237,14 @@ body.is-desktop-mode .desktop-view {
     position: absolute;
     left: 0;
     top: 0;
-    width: 60px;
+    width: clamp(30px, 8vw, 80px);
     height: 100%;
-    background-image: 
-        repeating-linear-gradient(
-            0deg,
-            var(--bk-cream) 0px,
-            var(--bk-cream) 15px,
-            transparent 15px,
-            transparent 30px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            var(--bk-cream) 0px,
-            var(--bk-cream) 15px,
-            var(--bk-red) 15px,
-            var(--bk-red) 30px
-        );
-    background-size: 30px 30px;
-    /* Crear efecto de cuadros */
     background-image: 
         linear-gradient(45deg, var(--bk-cream) 25%, transparent 25%),
         linear-gradient(-45deg, var(--bk-cream) 25%, transparent 25%),
         linear-gradient(45deg, transparent 75%, var(--bk-cream) 75%),
         linear-gradient(-45deg, transparent 75%, var(--bk-cream) 75%);
-    background-size: 20px 20px;
+    background-size: clamp(12px, 2vw, 20px) clamp(12px, 2vw, 20px);
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
 
@@ -257,23 +258,25 @@ body.is-desktop-mode .desktop-view {
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    padding: 20px;
-    padding-left: 80px; /* Espacio para el patrón */
+    padding: 3vh 4vw;
+    padding-left: clamp(40px, 10vw, 100px);
 }
 
 .landscape-left {
-    flex: 1;
+    flex: 0 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding-right: 20px;
+    padding-right: 2vw;
+    max-width: 45%;
 }
 
 .landscape-text-image {
-    width: 100%;
-    max-width: 280px;
+    width: clamp(120px, 30vw, 300px);
     height: auto;
+    max-height: 80vh;
+    object-fit: contain;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
@@ -287,18 +290,24 @@ body.is-desktop-mode .desktop-view {
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 55%;
 }
 
 /* Hamburguesa Landscape */
 .landscape-burger {
-    max-width: 100%;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     animation: burgerPulse 3s ease-in-out infinite;
 }
 
 .landscape-burger .burger-image {
-    width: 100%;
-    max-width: 400px;
+    width: clamp(180px, 45vw, 450px);
     height: auto;
+    max-height: 85vh;
+    object-fit: contain;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
 }
 
@@ -567,145 +576,148 @@ body.is-desktop-mode .desktop-view {
 }
 
 /* ================================
-   Responsive: Móviles Pequeños
+   Responsive: Móviles muy pequeños (< 350px)
    ================================ */
-@media (max-width: 374px) {
+@media (max-width: 350px) and (orientation: portrait) {
     .portrait-burger {
-        max-width: 60%;
+        width: 45vw;
+        max-height: 35vh;
+    }
+    
+    .portrait-burger .burger-image {
+        max-height: 35vh;
     }
     
     .portrait-content .text-image {
-        max-width: 280px;
+        width: 75vw;
+        max-height: 20vh;
     }
     
-    .landscape-content {
-        padding-left: 60px;
-    }
-    
-    .landscape-text-image {
-        max-width: 200px;
-    }
-    
-    .landscape-burger .burger-image {
-        max-width: 280px;
-    }
-    
-    .checker-pattern {
-        width: 40px;
-    }
-}
-
-/* ================================
-   Responsive: Móviles Estándar (375px - 413px)
-   ================================ */
-@media (min-width: 375px) and (max-width: 413px) {
-    .portrait-burger {
-        max-width: 65%;
-    }
-    
-    .portrait-content .text-image {
-        max-width: 320px;
-    }
-}
-
-/* ================================
-   Responsive: Móviles Grandes (> 414px)
-   ================================ */
-@media (min-width: 414px) and (max-width: 767px) {
-    .portrait-burger {
-        max-width: 70%;
-    }
-    
-    .portrait-content .text-image {
-        max-width: 380px;
-    }
-    
-    .landscape-text-image {
-        max-width: 320px;
-    }
-    
-    .landscape-burger .burger-image {
-        max-width: 450px;
-    }
-}
-
-/* ================================
-   Responsive: Altura pequeña Portrait
-   ================================ */
-@media (max-height: 667px) and (orientation: portrait) {
     .portrait-content {
-        gap: 15px;
-        padding: 15px;
-    }
-    
-    .portrait-burger {
-        max-width: 50%;
-    }
-    
-    .portrait-content .text-image {
-        max-width: 260px;
+        gap: 10px;
     }
 }
 
 /* ================================
-   Responsive: Altura grande Portrait
+   Responsive: Altura muy pequeña Portrait (< 600px)
    ================================ */
-@media (min-height: 844px) and (orientation: portrait) {
+@media (max-height: 600px) and (orientation: portrait) {
     .portrait-content {
-        gap: 40px;
+        gap: 10px;
+        padding: 3vw;
     }
     
     .portrait-burger {
-        max-width: 75%;
+        width: 40vw;
+        max-height: 35vh;
+    }
+    
+    .portrait-burger .burger-image {
+        max-height: 35vh;
     }
     
     .portrait-content .text-image {
+        width: 70vw;
+        max-height: 18vh;
+    }
+}
+
+/* ================================
+   Responsive: Altura pequeña Portrait (600-700px)
+   ================================ */
+@media (min-height: 600px) and (max-height: 700px) and (orientation: portrait) {
+    .portrait-burger {
+        width: 50vw;
+        max-height: 40vh;
+    }
+    
+    .portrait-burger .burger-image {
+        max-height: 40vh;
+    }
+    
+    .portrait-content .text-image {
+        width: 75vw;
+        max-height: 22vh;
+    }
+}
+
+/* ================================
+   Responsive: Altura grande Portrait (> 800px)
+   ================================ */
+@media (min-height: 800px) and (orientation: portrait) {
+    .portrait-content {
+        gap: clamp(20px, 5vh, 50px);
+    }
+    
+    .portrait-burger {
+        width: 55vw;
+        max-height: 50vh;
+    }
+    
+    .portrait-burger .burger-image {
+        max-height: 50vh;
+    }
+    
+    .portrait-content .text-image {
+        width: 80vw;
         max-width: 400px;
+        max-height: 28vh;
     }
 }
 
 /* ================================
-   Responsive: Landscape en móviles pequeños
+   Responsive: Landscape altura muy pequeña (< 350px)
    ================================ */
-@media (orientation: landscape) and (max-height: 400px) {
+@media (orientation: landscape) and (max-height: 350px) {
     .landscape-content {
-        padding: 10px;
-        padding-left: 50px;
+        padding: 2vh 3vw;
+        padding-left: clamp(35px, 8vw, 60px);
     }
     
     .checker-pattern {
-        width: 35px;
-        background-size: 14px 14px;
-        background-position: 0 0, 0 7px, 7px -7px, -7px 0px;
+        width: clamp(25px, 6vw, 45px);
     }
     
     .landscape-text-image {
-        max-width: 180px;
+        width: clamp(100px, 25vw, 180px);
+        max-height: 70vh;
     }
     
     .landscape-burger .burger-image {
-        max-width: 250px;
+        width: clamp(150px, 40vw, 300px);
+        max-height: 80vh;
     }
 }
 
 /* ================================
-   Responsive: Landscape en móviles grandes
+   Responsive: Landscape altura pequeña (350-450px)
    ================================ */
-@media (orientation: landscape) and (min-height: 400px) {
+@media (orientation: landscape) and (min-height: 350px) and (max-height: 450px) {
     .landscape-content {
-        padding-left: 100px;
-    }
-    
-    .checker-pattern {
-        width: 80px;
+        padding-left: clamp(40px, 9vw, 80px);
     }
     
     .landscape-text-image {
-        max-width: 350px;
+        width: clamp(120px, 28vw, 220px);
+        max-height: 75vh;
     }
     
     .landscape-burger .burger-image {
-        max-width: 500px;
+        width: clamp(180px, 42vw, 350px);
+        max-height: 85vh;
+    }
+}
+
+/* ================================
+   Responsive: Landscape altura media-grande (> 450px)
+   ================================ */
+@media (orientation: landscape) and (min-height: 450px) {
+    .landscape-text-image {
+        width: clamp(150px, 32vw, 320px);
+    }
+    
+    .landscape-burger .burger-image {
+        width: clamp(200px, 48vw, 500px);
     }
 }
 
@@ -726,18 +738,12 @@ body.is-desktop-mode .desktop-view {
     }
     
     .landscape-content {
-        padding-left: calc(80px + env(safe-area-inset-left));
+        padding-left: calc(clamp(40px, 10vw, 100px) + env(safe-area-inset-left));
     }
     
-    @media (orientation: landscape) and (max-height: 400px) {
+    @media (orientation: landscape) and (max-height: 350px) {
         .landscape-content {
-            padding-left: calc(50px + env(safe-area-inset-left));
-        }
-    }
-    
-    @media (orientation: landscape) and (min-height: 400px) {
-        .landscape-content {
-            padding-left: calc(100px + env(safe-area-inset-left));
+            padding-left: calc(clamp(35px, 8vw, 60px) + env(safe-area-inset-left));
         }
     }
 }
@@ -783,19 +789,20 @@ body.is-desktop-mode .desktop-view {
 /* Toast de notificación */
 .copy-toast {
     position: fixed;
-    bottom: 30px;
+    bottom: clamp(15px, 5vh, 30px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--bk-cream);
     color: var(--bk-red);
-    padding: 12px 24px;
+    padding: clamp(8px, 2vh, 12px) clamp(16px, 4vw, 24px);
     border-radius: 30px;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: clamp(0.75rem, 2.5vw, 0.9rem);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
+    white-space: nowrap;
 }
 
 .copy-toast.visible {
