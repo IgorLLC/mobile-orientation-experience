@@ -163,40 +163,52 @@ const DeviceDetector = (function() {
     function getDeviceType() {
         const width = window.innerWidth;
         const height = window.innerHeight;
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
         const minDimension = Math.min(width, height);
         const maxDimension = Math.max(width, height);
+        const maxScreenDimension = Math.max(screenWidth, screenHeight);
         
-        // Detectar iPad específicamente
+        // Primero: detectar móviles por User Agent (más confiable)
+        const isMobileUA = /iPhone|iPod|Android.*Mobile|webOS|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+        if (isMobileUA) {
+            return 'mobile';
+        }
+        
+        // Detectar iPad específicamente (iPadOS se hace pasar por macOS)
+        // Pero solo si las dimensiones son de tablet (no de laptop)
         const isIPad = /iPad/.test(ua) || 
-                       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+                       (navigator.platform === 'MacIntel' && 
+                        navigator.maxTouchPoints > 1 && 
+                        maxScreenDimension <= 1366); // iPads tienen max 1366px, MacBooks tienen más
         
         // Detectar tablets Android
         const isAndroidTablet = /Android/.test(ua) && !/Mobile/.test(ua);
         
-        // Es tablet si es iPad, Android tablet, o tiene dimensiones de tablet
+        // Es tablet si es iPad o Android tablet
         if (isIPad || isAndroidTablet) {
             return 'tablet';
         }
         
-        // Móvil: tiene touch y dimensiones pequeñas
-        const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        const isMobileUA = /iPhone|iPod|Android.*Mobile|webOS|BlackBerry|IEMobile|Opera Mini/i.test(ua);
-        
-        if (isMobileUA || (hasTouchScreen && minDimension <= 480)) {
-            return 'mobile';
-        }
-        
-        // Desktop por defecto si las dimensiones son grandes
-        if (minDimension > 768 || maxDimension > 1024) {
+        // Si tiene User Agent de Mac/Windows/Linux sin móvil -> es desktop
+        const isDesktopUA = /Macintosh|Windows|Linux/i.test(ua) && !isMobileUA;
+        if (isDesktopUA) {
             return 'desktop';
         }
         
-        // Tablet si está entre móvil y desktop
+        // Fallback por dimensiones
+        // Pantallas grandes -> desktop
+        if (maxScreenDimension > 1366 || minDimension > 768) {
+            return 'desktop';
+        }
+        
+        // Pantallas medianas -> tablet
         if (minDimension > 480 && minDimension <= 768) {
             return 'tablet';
         }
         
-        return 'desktop';
+        // Pantallas pequeñas -> mobile
+        return 'mobile';
     }
     
     /**
