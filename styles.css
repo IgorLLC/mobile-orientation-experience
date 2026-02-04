@@ -1,12 +1,11 @@
 /* ================================
-   Variables de BK
+   Variables de BK - Whopper Dog
    ================================ */
 :root {
-    --bk-orange: #FF6B00;
-    --bk-red: #D62300;
-    --bk-yellow: #FFC72C;
-    --bk-brown: #512314;
-    --fire-gradient: linear-gradient(180deg, #FF0000 0%, #FF6B00 50%, #FFC72C 100%);
+    --bk-red: #E4002B;
+    --bk-red-dark: #C8001F;
+    --bk-cream: #F5F0E1;
+    --bk-white: #FFFFFF;
 }
 
 /* Reset y estilos base */
@@ -32,8 +31,8 @@ body {
     width: 100%;
     width: 100vw;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-    background: var(--bk-brown);
-    color: #ffffff;
+    background: var(--bk-red);
+    color: var(--bk-cream);
     position: fixed;
     top: 0;
     left: 0;
@@ -86,6 +85,7 @@ body.is-desktop-mode .desktop-view {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        background: var(--bk-red);
     }
     
     body:not(.is-desktop-mode) .landscape-view {
@@ -93,12 +93,12 @@ body.is-desktop-mode .desktop-view {
     }
     
     body:not(.is-desktop-mode) {
-        background: linear-gradient(180deg, var(--bk-brown) 0%, #2d1408 100%);
+        background: var(--bk-red);
     }
 }
 
 /* ================================
-   Media Query: Landscape (Horizontal) - Vista simple
+   Media Query: Landscape (Horizontal)
    Solo aplica en modo móvil
    ================================ */
 @media (orientation: landscape) {
@@ -109,7 +109,7 @@ body.is-desktop-mode .desktop-view {
         width: 100vw;
         height: 100vh;
         height: 100dvh;
-        background: var(--fire-gradient);
+        background: var(--bk-red);
         position: fixed;
         top: 0;
         left: 0;
@@ -123,90 +123,191 @@ body.is-desktop-mode .desktop-view {
     }
     
     body:not(.is-desktop-mode) {
-        background: var(--fire-gradient);
+        background: var(--bk-red);
     }
-    
-    /* Cupon centrado */
-    .landscape-view .coupon-container {
-        width: 100%;
-        max-width: 400px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 15px;
+}
+
+/* ================================
+   Vista Portrait - Fondo y contenido
+   ================================ */
+.portrait-view {
+    position: relative;
+}
+
+.portrait-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.portrait-background .background-pattern {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+}
+
+.portrait-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    gap: 30px;
+}
+
+/* Hamburguesa Portrait - rotada 90 grados */
+.portrait-burger {
+    max-width: 70%;
+    animation: burgerFloat 3s ease-in-out infinite;
+}
+
+.portrait-burger .burger-image {
+    width: 100%;
+    height: auto;
+    transform: rotate(90deg);
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes burgerFloat {
+    0%, 100% {
+        transform: translateY(0);
     }
-    
-    .landscape-view .coupon-reveal {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    50% {
+        transform: translateY(-10px);
     }
-    
-    .landscape-view .coupon-header {
-        margin-bottom: 10px;
+}
+
+/* Texto Portrait */
+.portrait-content .text-container {
+    max-width: 90%;
+    text-align: center;
+}
+
+.portrait-content .text-image {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+}
+
+/* ================================
+   Vista Landscape - Fondo y contenido
+   ================================ */
+.landscape-view {
+    position: relative;
+}
+
+.landscape-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: var(--bk-red);
+}
+
+/* Patrón cuadriculado a la izquierda en landscape */
+.checker-pattern {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 60px;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            var(--bk-cream) 0px,
+            var(--bk-cream) 15px,
+            transparent 15px,
+            transparent 30px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            var(--bk-cream) 0px,
+            var(--bk-cream) 15px,
+            var(--bk-red) 15px,
+            var(--bk-red) 30px
+        );
+    background-size: 30px 30px;
+    /* Crear efecto de cuadros */
+    background-image: 
+        linear-gradient(45deg, var(--bk-cream) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--bk-cream) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--bk-cream) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--bk-cream) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+/* Contenido Landscape */
+.landscape-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    padding-left: 80px; /* Espacio para el patrón */
+}
+
+.landscape-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-right: 20px;
+}
+
+.landscape-text-image {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.landscape-text-image:active {
+    transform: scale(0.98);
+}
+
+.landscape-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hamburguesa Landscape */
+.landscape-burger {
+    max-width: 100%;
+    animation: burgerPulse 3s ease-in-out infinite;
+}
+
+.landscape-burger .burger-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes burgerPulse {
+    0%, 100% {
+        transform: scale(1);
     }
-    
-    .landscape-view .coupon-header .icon-gift {
-        width: 36px;
-        height: 36px;
-    }
-    
-    .landscape-view .coupon-header h1 {
-        font-size: 1.2rem;
-        margin-top: 5px;
-    }
-    
-    .landscape-view .coupon-card {
-        width: 100%;
-        max-width: 300px;
-        padding: 12px 16px;
-    }
-    
-    .landscape-view .coupon-content {
-        padding: 6px 0;
-    }
-    
-    .landscape-view .coupon-label {
-        font-size: 0.7rem;
-        margin-bottom: 5px;
-    }
-    
-    .landscape-view .coupon-code {
-        padding: 8px 14px;
-        margin-bottom: 5px;
-    }
-    
-    .landscape-view .coupon-code span {
-        font-size: 1.2rem;
-        letter-spacing: 2px;
-    }
-    
-    .landscape-view .coupon-discount {
-        font-size: 1.4rem;
-    }
-    
-    .landscape-view .coupon-footer {
-        padding-top: 6px;
-        font-size: 0.65rem;
-    }
-    
-    .landscape-view .coupon-badge {
-        width: 28px;
-        height: 28px;
-        top: -8px;
-        right: 10px;
-    }
-    
-    .landscape-view .coupon-badge .icon-percent {
-        width: 14px;
-        height: 14px;
-    }
-    
-    .landscape-view .coupon-instructions {
-        margin-top: 8px;
-        font-size: 0.7rem;
+    50% {
+        transform: scale(1.02);
     }
 }
 
@@ -227,341 +328,6 @@ body.is-desktop-mode .desktop-view {
     z-index: 10;
 }
 
-.bk-logo-large {
-    display: block;
-    width: 100%;
-    max-width: 140px;
-    height: auto;
-}
-
-/* ================================
-   Vista Portrait - Cupon
-   ================================ */
-.coupon-container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-}
-
-.coupon-reveal {
-    animation: revealCoupon 0.8s ease-out forwards;
-}
-
-@keyframes revealCoupon {
-    0% {
-        opacity: 0;
-        transform: scale(0.8) translateY(30px);
-    }
-    50% {
-        transform: scale(1.02) translateY(-5px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-.coupon-header {
-    text-align: center;
-    margin-bottom: 24px;
-    animation: bounceIn 0.6s ease-out 0.3s backwards;
-}
-
-@keyframes bounceIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.3);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.coupon-header .icon-gift {
-    width: 64px;
-    height: 64px;
-    color: var(--bk-yellow);
-    filter: drop-shadow(0 4px 8px rgba(255, 199, 44, 0.4));
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-}
-
-.coupon-header h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-top: 12px;
-    color: var(--bk-yellow);
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.coupon-card {
-    background: rgba(255, 255, 255, 0.98);
-    border-radius: 20px;
-    padding: 24px;
-    position: relative;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    border: 3px solid var(--bk-red);
-    animation: slideUp 0.6s ease-out 0.4s backwards;
-}
-
-@keyframes slideUp {
-    0% {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Circulos decorativos del cupon con colores BK */
-.coupon-card::before,
-.coupon-card::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    background: var(--fire-gradient);
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.coupon-card::before {
-    left: -12px;
-}
-
-.coupon-card::after {
-    right: -12px;
-}
-
-.coupon-badge {
-    position: absolute;
-    top: -16px;
-    right: 20px;
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, var(--bk-orange) 0%, var(--bk-red) 100%);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 15px rgba(214, 35, 0, 0.5);
-    animation: badgePop 0.5s ease-out 0.7s backwards;
-}
-
-@keyframes badgePop {
-    0% {
-        transform: scale(0) rotate(-180deg);
-    }
-    100% {
-        transform: scale(1) rotate(0);
-    }
-}
-
-.coupon-badge .icon-percent {
-    width: 24px;
-    height: 24px;
-    color: white;
-}
-
-.coupon-content {
-    text-align: center;
-    padding: 16px 0;
-}
-
-.coupon-label {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--bk-brown);
-    margin-bottom: 12px;
-    font-weight: 500;
-}
-
-.coupon-code {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: linear-gradient(135deg, var(--bk-red) 0%, #a01b00 100%);
-    padding: 16px 24px;
-    border-radius: 12px;
-    margin-bottom: 12px;
-}
-
-.coupon-code span {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: white;
-    letter-spacing: 3px;
-}
-
-.copy-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    padding: 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.copy-btn:active {
-    background: rgba(255, 255, 255, 0.4);
-}
-
-.copy-btn .icon-copy {
-    width: 20px;
-    height: 20px;
-    color: white;
-}
-
-.coupon-discount {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--bk-orange) 0%, var(--bk-red) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.coupon-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding-top: 16px;
-    border-top: 2px dashed var(--bk-yellow);
-    color: var(--bk-brown);
-    font-size: 0.85rem;
-}
-
-.icon-small {
-    width: 16px;
-    height: 16px;
-    color: var(--bk-orange);
-}
-
-.coupon-instructions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 24px;
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.95);
-    animation: fadeIn 0.5s ease-out 0.8s backwards;
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-/* ================================
-   Vista Portrait - Mensaje Girar
-   ================================ */
-.rotate-message {
-    text-align: center;
-    padding: 40px;
-}
-
-.rotate-icon-container {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 24px;
-}
-
-.icon-phone {
-    width: 80px;
-    height: 80px;
-    color: var(--bk-yellow);
-    animation: phoneRock 2s ease-in-out infinite;
-}
-
-@keyframes phoneRock {
-    0%, 100% {
-        transform: rotate(0deg);
-    }
-    25% {
-        transform: rotate(-20deg);
-    }
-    75% {
-        transform: rotate(20deg);
-    }
-}
-
-.rotate-arrow {
-    position: absolute;
-    top: -10px;
-    right: -30px;
-}
-
-.icon-rotate {
-    width: 36px;
-    height: 36px;
-    color: var(--bk-orange);
-    animation: rotateIcon 2s linear infinite;
-}
-
-@keyframes rotateIcon {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(-360deg);
-    }
-}
-
-.rotate-message h2 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--bk-yellow);
-}
-
-.rotate-message p {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 24px;
-}
-
-.hint-animation {
-    animation: bounce 1.5s ease-in-out infinite;
-}
-
-.icon-chevrons {
-    width: 32px;
-    height: 32px;
-    color: var(--bk-orange);
-    transform: rotate(-90deg);
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(10px);
-    }
-}
-
 /* ================================
    Overlay de Transicion
    ================================ */
@@ -571,7 +337,7 @@ body.is-desktop-mode .desktop-view {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(81, 35, 20, 0.9);
+    background: rgba(228, 0, 43, 0.95);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -590,39 +356,13 @@ body.is-desktop-mode .desktop-view {
     width: 40px;
     height: 40px;
     border: 3px solid rgba(255, 255, 255, 0.2);
-    border-top-color: var(--bk-orange);
+    border-top-color: var(--bk-cream);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
     to { transform: rotate(360deg); }
-}
-
-/* ================================
-   Responsive adjustments
-   ================================ */
-@media (max-height: 600px) and (orientation: portrait) {
-    .coupon-header .icon-gift {
-        width: 48px;
-        height: 48px;
-    }
-    
-    .coupon-header h1 {
-        font-size: 1.5rem;
-    }
-    
-    .coupon-code span {
-        font-size: 1.4rem;
-    }
-    
-    .coupon-discount {
-        font-size: 2rem;
-    }
-    
-    .bk-logo-small {
-        width: 60px;
-    }
 }
 
 /* ================================
@@ -641,7 +381,7 @@ body.is-desktop-mode .desktop-view {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(180deg, var(--bk-brown) 0%, #1a0a06 100%);
+    background: var(--bk-red);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -719,8 +459,8 @@ body.is-desktop-mode .desktop-view {
 .desktop-view .desktop-phone-icon {
     width: 80px;
     height: 80px;
-    color: var(--bk-yellow);
-    filter: drop-shadow(0 4px 20px rgba(255, 199, 44, 0.5));
+    color: var(--bk-cream);
+    filter: drop-shadow(0 4px 20px rgba(245, 240, 225, 0.5));
 }
 
 .desktop-view .phone-glow {
@@ -730,7 +470,7 @@ body.is-desktop-mode .desktop-view {
     transform: translate(-50%, -50%);
     width: 120px;
     height: 120px;
-    background: radial-gradient(circle, rgba(255, 199, 44, 0.3) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(245, 240, 225, 0.3) 0%, transparent 70%);
     border-radius: 50%;
     animation: glowPulse 2s ease-in-out infinite;
     z-index: 1;
@@ -747,19 +487,19 @@ body.is-desktop-mode .desktop-view {
     }
 }
 
-/* Textos */
+/* Textos Desktop */
 .desktop-view .desktop-title {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--bk-yellow);
+    color: var(--bk-cream);
     margin-bottom: 12px;
-    text-shadow: 0 2px 20px rgba(255, 199, 44, 0.3);
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
     animation: textFadeIn 0.8s ease-out 0.2s backwards;
 }
 
 .desktop-view .desktop-subtitle {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(245, 240, 225, 0.8);
     margin-bottom: 40px;
     animation: textFadeIn 0.8s ease-out 0.4s backwards;
 }
@@ -775,44 +515,7 @@ body.is-desktop-mode .desktop-view {
     }
 }
 
-/* Caja de URL */
-.desktop-view .url-box {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid var(--bk-orange);
-    border-radius: 12px;
-    padding: 16px 24px;
-    margin-bottom: 30px;
-    animation: urlBoxPulse 3s ease-in-out infinite, textFadeIn 0.8s ease-out 0.6s backwards;
-}
-
-@keyframes urlBoxPulse {
-    0%, 100% {
-        border-color: var(--bk-orange);
-        box-shadow: 0 0 0 0 rgba(255, 107, 0, 0);
-    }
-    50% {
-        border-color: var(--bk-yellow);
-        box-shadow: 0 0 20px 5px rgba(255, 107, 0, 0.3);
-    }
-}
-
-.desktop-view .url-icon {
-    width: 20px;
-    height: 20px;
-    color: var(--bk-orange);
-}
-
-.desktop-view .url-text {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #fff;
-    letter-spacing: 0.5px;
-}
-
-/* QR Code */
+/* QR Code Desktop */
 .desktop-view .qr-wrapper {
     margin: 30px 0;
     animation: textFadeIn 0.8s ease-out 0.6s backwards;
@@ -821,9 +524,9 @@ body.is-desktop-mode .desktop-view {
 .desktop-view .qr-container {
     display: inline-block;
     padding: 20px;
-    background: #ffffff;
+    background: var(--bk-cream);
     border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 4px var(--bk-orange);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
 /* QRCode.js genera img Y canvas - ocultar el canvas, mostrar solo img */
@@ -837,13 +540,13 @@ body.is-desktop-mode .desktop-view {
     display: none !important;
 }
 
-/* Hint inferior */
+/* Hint inferior Desktop */
 .desktop-view .mobile-hint {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(245, 240, 225, 0.6);
     font-size: 0.9rem;
     animation: textFadeIn 0.8s ease-out 0.8s backwards;
 }
@@ -864,181 +567,100 @@ body.is-desktop-mode .desktop-view {
 }
 
 /* ================================
-   Responsive: Móviles Pequeños (iPhone SE, Mini < 375px)
+   Responsive: Móviles Pequeños
    ================================ */
 @media (max-width: 374px) {
-    .rotate-message h2 {
-        font-size: clamp(1.3rem, 5vw, 1.6rem);
+    .portrait-burger {
+        max-width: 60%;
     }
     
-    .rotate-message p {
-        font-size: clamp(0.9rem, 4vw, 1rem);
+    .portrait-content .text-image {
+        max-width: 280px;
     }
     
-    .icon-phone {
-        width: clamp(60px, 18vw, 70px);
-        height: clamp(60px, 18vw, 70px);
+    .landscape-content {
+        padding-left: 60px;
     }
     
-    .bk-logo-small {
-        width: clamp(60px, 18vw, 70px);
+    .landscape-text-image {
+        max-width: 200px;
     }
     
-    .coupon-header h1 {
-        font-size: clamp(1.3rem, 6vw, 1.6rem);
+    .landscape-burger .burger-image {
+        max-width: 280px;
     }
     
-    .coupon-header .icon-gift {
-        width: clamp(48px, 14vw, 56px);
-        height: clamp(48px, 14vw, 56px);
-    }
-    
-    .coupon-code span {
-        font-size: clamp(1.2rem, 5vw, 1.5rem);
-        letter-spacing: 2px;
-    }
-    
-    .coupon-discount {
-        font-size: clamp(1.8rem, 8vw, 2.2rem);
-    }
-    
-    .coupon-card {
-        padding: 18px;
-    }
-    
-    .coupon-code {
-        padding: 12px 18px;
+    .checker-pattern {
+        width: 40px;
     }
 }
 
 /* ================================
-   Responsive: Móviles Estándar (iPhone 14, Pixel 375px - 413px)
+   Responsive: Móviles Estándar (375px - 413px)
    ================================ */
 @media (min-width: 375px) and (max-width: 413px) {
-    .rotate-message h2 {
-        font-size: clamp(1.5rem, 5vw, 1.8rem);
+    .portrait-burger {
+        max-width: 65%;
     }
     
-    .rotate-message p {
-        font-size: clamp(1rem, 4vw, 1.1rem);
-    }
-    
-    .coupon-header h1 {
-        font-size: clamp(1.6rem, 6vw, 2rem);
-    }
-    
-    .coupon-code span {
-        font-size: clamp(1.4rem, 5vw, 1.8rem);
-    }
-    
-    .coupon-discount {
-        font-size: clamp(2rem, 8vw, 2.5rem);
+    .portrait-content .text-image {
+        max-width: 320px;
     }
 }
 
 /* ================================
-   Responsive: Móviles Grandes (iPhone Plus, Pro Max > 414px)
+   Responsive: Móviles Grandes (> 414px)
    ================================ */
 @media (min-width: 414px) and (max-width: 767px) {
-    .rotate-message h2 {
-        font-size: clamp(1.8rem, 5vw, 2rem);
+    .portrait-burger {
+        max-width: 70%;
     }
     
-    .rotate-message p {
-        font-size: clamp(1.1rem, 3.5vw, 1.2rem);
+    .portrait-content .text-image {
+        max-width: 380px;
     }
     
-    .icon-phone {
-        width: clamp(80px, 20vw, 100px);
-        height: clamp(80px, 20vw, 100px);
+    .landscape-text-image {
+        max-width: 320px;
     }
     
-    .coupon-header h1 {
-        font-size: clamp(2rem, 5vw, 2.2rem);
-    }
-    
-    .coupon-header .icon-gift {
-        width: clamp(64px, 16vw, 80px);
-        height: clamp(64px, 16vw, 80px);
-    }
-    
-    .coupon-code span {
-        font-size: clamp(1.8rem, 5vw, 2rem);
-    }
-    
-    .coupon-discount {
-        font-size: clamp(2.5rem, 8vw, 3rem);
+    .landscape-burger .burger-image {
+        max-width: 450px;
     }
 }
 
 /* ================================
-   Responsive: Altura pequeña (iPhone SE, mini pantallas)
+   Responsive: Altura pequeña Portrait
    ================================ */
 @media (max-height: 667px) and (orientation: portrait) {
-    .rotate-message {
-        padding: 20px;
+    .portrait-content {
+        gap: 15px;
+        padding: 15px;
     }
     
-    .rotate-icon-container {
-        margin-bottom: 16px;
+    .portrait-burger {
+        max-width: 50%;
     }
     
-    .icon-phone {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .icon-rotate {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .rotate-message h2 {
-        font-size: 1.4rem;
-        margin-bottom: 4px;
-    }
-    
-    .rotate-message p {
-        font-size: 0.95rem;
-        margin-bottom: 16px;
-    }
-    
-    .bk-logo-small {
-        width: 60px;
-        top: 15px;
+    .portrait-content .text-image {
+        max-width: 260px;
     }
 }
 
 /* ================================
-   Responsive: Altura grande (iPhone Pro Max, pantallas altas)
+   Responsive: Altura grande Portrait
    ================================ */
 @media (min-height: 844px) and (orientation: portrait) {
-    .rotate-message {
-        padding: 50px;
+    .portrait-content {
+        gap: 40px;
     }
     
-    .rotate-icon-container {
-        margin-bottom: 32px;
+    .portrait-burger {
+        max-width: 75%;
     }
     
-    .icon-phone {
-        width: 100px;
-        height: 100px;
-    }
-    
-    .rotate-message h2 {
-        font-size: 2rem;
-        margin-bottom: 12px;
-    }
-    
-    .rotate-message p {
-        font-size: 1.2rem;
-        margin-bottom: 32px;
-    }
-    
-    .bk-logo-small {
-        width: 100px;
-        top: 30px;
+    .portrait-content .text-image {
+        max-width: 400px;
     }
 }
 
@@ -1046,42 +668,23 @@ body.is-desktop-mode .desktop-view {
    Responsive: Landscape en móviles pequeños
    ================================ */
 @media (orientation: landscape) and (max-height: 400px) {
-    .landscape-view .coupon-header .icon-gift {
-        width: 28px;
-        height: 28px;
+    .landscape-content {
+        padding: 10px;
+        padding-left: 50px;
     }
     
-    .landscape-view .coupon-header h1 {
-        font-size: 1rem;
-        margin-top: 3px;
+    .checker-pattern {
+        width: 35px;
+        background-size: 14px 14px;
+        background-position: 0 0, 0 7px, 7px -7px, -7px 0px;
     }
     
-    .landscape-view .coupon-card {
-        padding: 10px 14px;
-        max-width: 260px;
+    .landscape-text-image {
+        max-width: 180px;
     }
     
-    .landscape-view .coupon-code {
-        padding: 6px 10px;
-    }
-    
-    .landscape-view .coupon-code span {
-        font-size: 1rem;
-        letter-spacing: 1px;
-    }
-    
-    .landscape-view .coupon-discount {
-        font-size: 1.2rem;
-    }
-    
-    .landscape-view .coupon-footer {
-        padding-top: 5px;
-        font-size: 0.6rem;
-    }
-    
-    .landscape-view .coupon-instructions {
-        font-size: 0.6rem;
-        margin-top: 6px;
+    .landscape-burger .burger-image {
+        max-width: 250px;
     }
 }
 
@@ -1089,26 +692,20 @@ body.is-desktop-mode .desktop-view {
    Responsive: Landscape en móviles grandes
    ================================ */
 @media (orientation: landscape) and (min-height: 400px) {
-    .landscape-view .coupon-header .icon-gift {
-        width: clamp(36px, 8vh, 48px);
-        height: clamp(36px, 8vh, 48px);
+    .landscape-content {
+        padding-left: 100px;
     }
     
-    .landscape-view .coupon-header h1 {
-        font-size: clamp(1.2rem, 3vh, 1.5rem);
+    .checker-pattern {
+        width: 80px;
     }
     
-    .landscape-view .coupon-card {
-        max-width: clamp(280px, 50vw, 360px);
-        padding: clamp(12px, 3vh, 20px);
+    .landscape-text-image {
+        max-width: 350px;
     }
     
-    .landscape-view .coupon-code span {
-        font-size: clamp(1.2rem, 3vh, 1.5rem);
-    }
-    
-    .landscape-view .coupon-discount {
-        font-size: clamp(1.4rem, 4vh, 2rem);
+    .landscape-burger .burger-image {
+        max-width: 500px;
     }
 }
 
@@ -1128,13 +725,80 @@ body.is-desktop-mode .desktop-view {
         padding-right: env(safe-area-inset-right);
     }
     
-    .bk-logo-small {
-        top: calc(20px + env(safe-area-inset-top));
+    .landscape-content {
+        padding-left: calc(80px + env(safe-area-inset-left));
     }
     
-    @media (max-height: 667px) and (orientation: portrait) {
-        .bk-logo-small {
-            top: calc(15px + env(safe-area-inset-top));
+    @media (orientation: landscape) and (max-height: 400px) {
+        .landscape-content {
+            padding-left: calc(50px + env(safe-area-inset-left));
         }
     }
+    
+    @media (orientation: landscape) and (min-height: 400px) {
+        .landscape-content {
+            padding-left: calc(100px + env(safe-area-inset-left));
+        }
+    }
+}
+
+/* ================================
+   Animación de entrada
+   ================================ */
+.portrait-view .portrait-content,
+.landscape-view .landscape-content {
+    animation: contentReveal 0.6s ease-out;
+}
+
+@keyframes contentReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ================================
+   Efecto de copia del código
+   ================================ */
+.landscape-text-image.copied {
+    animation: copyPulse 0.3s ease-out;
+}
+
+@keyframes copyPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Toast de notificación */
+.copy-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bk-cream);
+    color: var(--bk-red);
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.copy-toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
 }

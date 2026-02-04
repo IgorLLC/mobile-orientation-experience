@@ -1,6 +1,6 @@
 /**
- * Mobile Coupon Reveal Experience
- * Muestra un cupón al girar el teléfono a posición horizontal
+ * BK Whopper Dog - Mobile Experience
+ * Muestra el Whopper Dog al girar el teléfono a posición horizontal
  * Con mensaje para desktop/tablet indicando que es solo para móviles
  */
 
@@ -17,19 +17,19 @@ function isMobileDevice() {
     
     // 1. Detectar iPhone/iPod explícitamente (siempre móvil)
     if (/iPhone|iPod/i.test(ua)) {
-        console.log('[BK Coupon] Detected: iPhone/iPod');
+        console.log('[BK Whopper Dog] Detected: iPhone/iPod');
         return true;
     }
     
     // 2. Detectar Android Mobile (no tablets)
     if (/Android.*Mobile/i.test(ua)) {
-        console.log('[BK Coupon] Detected: Android Mobile');
+        console.log('[BK Whopper Dog] Detected: Android Mobile');
         return true;
     }
     
     // 3. Detectar iPad - es móvil para esta experiencia
     if (/iPad/i.test(ua)) {
-        console.log('[BK Coupon] Detected: iPad');
+        console.log('[BK Whopper Dog] Detected: iPad');
         return true;
     }
     
@@ -38,14 +38,14 @@ function isMobileDevice() {
     if (navigator.platform === 'MacIntel' && 
         navigator.maxTouchPoints > 1 && 
         maxScreen <= 1366) {
-        console.log('[BK Coupon] Detected: iPadOS (Mac disguise)');
+        console.log('[BK Whopper Dog] Detected: iPadOS (Mac disguise)');
         return true;
     }
     
     // 5. Todo lo demás es desktop
-    console.log('[BK Coupon] Detected: Desktop');
-    console.log('[BK Coupon] UA:', ua);
-    console.log('[BK Coupon] Screen:', screenWidth, 'x', screenHeight);
+    console.log('[BK Whopper Dog] Detected: Desktop');
+    console.log('[BK Whopper Dog] UA:', ua);
+    console.log('[BK Whopper Dog] Screen:', screenWidth, 'x', screenHeight);
     return false;
 }
 
@@ -57,7 +57,7 @@ let qrGenerated = false;
 function generateQR() {
     // Evitar generar múltiples veces
     if (qrGenerated) {
-        console.log('[BK Coupon] QR already generated');
+        console.log('[BK Whopper Dog] QR already generated');
         return;
     }
     
@@ -66,8 +66,8 @@ function generateQR() {
     
     // Verificar que QRCode esté disponible
     if (typeof QRCode === 'undefined') {
-        console.warn('[BK Coupon] QRCode library not loaded');
-        qrContainer.innerHTML = '<p style="color:#512314;padding:20px;">QR no disponible</p>';
+        console.warn('[BK Whopper Dog] QRCode library not loaded');
+        qrContainer.innerHTML = '<p style="color:#E4002B;padding:20px;">QR no disponible</p>';
         return;
     }
     
@@ -82,15 +82,15 @@ function generateQR() {
             text: currentURL,
             width: 180,
             height: 180,
-            colorDark: '#512314',
-            colorLight: '#ffffff',
+            colorDark: '#E4002B',
+            colorLight: '#F5F0E1',
             correctLevel: QRCode.CorrectLevel.M
         });
         qrGenerated = true;
-        console.log('[BK Coupon] QR generated for:', currentURL);
+        console.log('[BK Whopper Dog] QR generated for:', currentURL);
     } catch (err) {
-        console.error('[BK Coupon] Error generating QR:', err);
-        qrContainer.innerHTML = '<p style="color:#512314;padding:20px;">Error QR</p>';
+        console.error('[BK Whopper Dog] Error generating QR:', err);
+        qrContainer.innerHTML = '<p style="color:#E4002B;padding:20px;">Error QR</p>';
     }
 }
 
@@ -112,7 +112,7 @@ window.isMobileDevice = isMobileDevice;
 
     // Elementos del DOM
     const transitionOverlay = document.getElementById('transitionOverlay');
-    const copyBtn = document.getElementById('copyBtn');
+    const couponElement = document.getElementById('couponElement');
     const desktopView = document.getElementById('desktopView');
     const portraitView = document.querySelector('.portrait-view');
     const landscapeView = document.querySelector('.landscape-view');
@@ -183,7 +183,7 @@ window.isMobileDevice = isMobileDevice;
             landscapeView.style.display = '';
         }
         
-        console.log('[BK Coupon] Mobile view activated');
+        console.log('[BK Whopper Dog] Mobile view activated');
     }
 
     /**
@@ -217,7 +217,7 @@ window.isMobileDevice = isMobileDevice;
             lucide.createIcons();
         }
         
-        console.log('[BK Coupon] Desktop/Tablet view activated');
+        console.log('[BK Whopper Dog] Desktop/Tablet view activated');
     }
 
     /**
@@ -257,10 +257,10 @@ window.isMobileDevice = isMobileDevice;
     }
 
     /**
-     * Copia el código del cupón
+     * Copia el código del cupón BKWHOPPERDOG
      */
     function copyCouponCode() {
-        const code = 'BKHOTDOG';
+        const code = 'BKWHOPPERDOG';
         
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(code).then(() => {
@@ -292,23 +292,45 @@ window.isMobileDevice = isMobileDevice;
     }
 
     function showCopyFeedback() {
-        const btn = copyBtn;
-        if (!btn) return;
-        
-        const originalHTML = btn.innerHTML;
-        btn.innerHTML = '<i data-lucide="check" class="icon-copy"></i>';
-        btn.style.background = 'rgba(76, 175, 80, 0.5)';
-        
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
+        // Agregar clase de animación a la imagen
+        if (couponElement) {
+            couponElement.classList.add('copied');
+            setTimeout(() => {
+                couponElement.classList.remove('copied');
+            }, 300);
         }
         
+        // Mostrar toast de confirmación
+        showToast('Codigo copiado: BKWHOPPERDOG');
+    }
+
+    /**
+     * Muestra un toast de notificación
+     */
+    function showToast(message) {
+        // Remover toast existente si hay uno
+        const existingToast = document.querySelector('.copy-toast');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        // Crear nuevo toast
+        const toast = document.createElement('div');
+        toast.className = 'copy-toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        // Mostrar con animación
         setTimeout(() => {
-            btn.innerHTML = originalHTML;
-            btn.style.background = '';
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
+            toast.classList.add('visible');
+        }, 10);
+        
+        // Ocultar después de 2 segundos
+        setTimeout(() => {
+            toast.classList.remove('visible');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
         }, 2000);
     }
 
@@ -338,8 +360,13 @@ window.isMobileDevice = isMobileDevice;
             mediaQuery.addEventListener('change', handleOrientationChange);
         }
         
-        if (copyBtn) {
-            copyBtn.addEventListener('click', copyCouponCode);
+        // Click en la imagen del cupón para copiar el código
+        if (couponElement) {
+            couponElement.addEventListener('click', copyCouponCode);
+            couponElement.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                copyCouponCode();
+            });
         }
     }
 

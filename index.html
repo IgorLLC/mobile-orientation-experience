@@ -8,22 +8,22 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#512314">
-    <meta name="msapplication-navbutton-color" content="#512314">
-    <meta name="apple-mobile-web-app-title" content="BK Cupon">
+    <meta name="theme-color" content="#E4002B">
+    <meta name="msapplication-navbutton-color" content="#E4002B">
+    <meta name="apple-mobile-web-app-title" content="BK Whopper Dog">
     
     <!-- Prevenir caching para desarrollo -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     
-    <title>BK - Descubre tu Cupon</title>
+    <title>BK - Whopper Dog</title>
     <link rel="stylesheet" href="styles.css">
     
     <!-- Estilos inline criticos -->
     <style>
         /* Colores BK */
         :root {
-            --bk-brown: #512314;
-            --fire-gradient: linear-gradient(180deg, #FF0000 0%, #FF6B00 50%, #FFC72C 100%);
+            --bk-red: #E4002B;
+            --bk-cream: #F5F0E1;
         }
         
         /* Base - evita flash blanco */
@@ -31,9 +31,8 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            background: #512314;
+            background: #E4002B;
         }
-        
     </style>
     
     <!-- Lucide Icons -->
@@ -57,7 +56,7 @@
                 </div>
                 
                 <h2 class="desktop-title">Escanea con tu movil</h2>
-                <p class="desktop-subtitle">para descubrir tu cupon exclusivo</p>
+                <p class="desktop-subtitle">para descubrir el Whopper Dog</p>
                 
                 <!-- QR Code -->
                 <div class="qr-wrapper">
@@ -74,55 +73,44 @@
 
     <!-- Vista Vertical (Portrait) - Mensaje para girar -->
     <div class="portrait-view">
-        <img src="logo.svg" alt="Burger King" class="bk-logo bk-logo-small">
-        <div class="rotate-message">
-            <div class="rotate-icon-container">
-                <i data-lucide="smartphone" class="icon-phone"></i>
-                <div class="rotate-arrow">
-                    <i data-lucide="rotate-ccw" class="icon-rotate"></i>
-                </div>
+        <!-- Fondo con cuadriculado -->
+        <div class="portrait-background">
+            <img src="assets/QUADRICULADO.png" alt="" class="background-pattern">
+        </div>
+        
+        <!-- Contenido -->
+        <div class="portrait-content">
+            <!-- Hamburguesa rotada -->
+            <div class="burger-container portrait-burger">
+                <img src="assets/hamburger.png" alt="Whopper Dog" class="burger-image">
             </div>
-            <h2>Gira tu telefono</h2>
-            <p>para descubrir tu cupon exclusivo</p>
-            <div class="hint-animation">
-                <i data-lucide="chevrons-down" class="icon-chevrons"></i>
+            
+            <!-- Texto -->
+            <div class="text-container">
+                <img src="assets/TEXTO_01.png" alt="Is it a hot dog? Is it a Whopper? Flip your phone and find out." class="text-image">
             </div>
         </div>
     </div>
 
-    <!-- Vista Horizontal (Landscape) - Cupón directo -->
+    <!-- Vista Horizontal (Landscape) - Cupón revelado -->
     <div class="landscape-view">
-        <div class="coupon-container">
-            <div class="coupon-reveal">
-                <div class="coupon-header">
-                    <i data-lucide="gift" class="icon-gift"></i>
-                    <h1>Felicidades!</h1>
+        <!-- Fondo rojo con patron a la izquierda -->
+        <div class="landscape-background">
+            <div class="checker-pattern"></div>
+        </div>
+        
+        <!-- Contenido -->
+        <div class="landscape-content">
+            <!-- Lado izquierdo - Texto y código -->
+            <div class="landscape-left">
+                <img src="assets/TEXTO_02.png" alt="Get your Whopper Dog - BKWHOPPERDOG" class="landscape-text-image" id="couponElement">
+            </div>
+            
+            <!-- Lado derecho - Hamburguesa -->
+            <div class="landscape-right">
+                <div class="burger-container landscape-burger">
+                    <img src="assets/hamburger.png" alt="Whopper Dog" class="burger-image">
                 </div>
-                
-                <div class="coupon-card">
-                    <div class="coupon-badge">
-                        <i data-lucide="percent" class="icon-percent"></i>
-                    </div>
-                    <div class="coupon-content">
-                        <span class="coupon-label">Tu cupon de descuento</span>
-                        <div class="coupon-code">
-                            <span>BKHOTDOG</span>
-                            <button class="copy-btn" id="copyBtn">
-                                <i data-lucide="copy" class="icon-copy"></i>
-                            </button>
-                        </div>
-                        <span class="coupon-discount">20% OFF</span>
-                    </div>
-                    <div class="coupon-footer">
-                        <i data-lucide="clock" class="icon-small"></i>
-                        <span>Valido por 24 horas</span>
-                    </div>
-                </div>
-                
-                <p class="coupon-instructions">
-                    <i data-lucide="shopping-cart" class="icon-small"></i>
-                    Usa este codigo en tu proxima compra
-                </p>
             </div>
         </div>
     </div>
