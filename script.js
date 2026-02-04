@@ -11,29 +11,42 @@
  */
 function isMobileDevice() {
     const ua = navigator.userAgent;
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
+    const maxScreen = Math.max(screenWidth, screenHeight);
     
-    // Detectar móviles por User Agent
-    // Incluye iPhone, iPod, iPad (para in-app browsers), Android Mobile
-    const isMobile = /iPhone|iPod|iPad|Android.*Mobile/i.test(ua);
+    // 1. Detectar iPhone/iPod explícitamente (siempre móvil)
+    if (/iPhone|iPod/i.test(ua)) {
+        console.log('[BK Coupon] Detected: iPhone/iPod');
+        return true;
+    }
     
-    // También detectar por características de iOS (para in-app browsers como el lector de QR)
-    const isIOSDevice = /iPhone|iPod|iPad/i.test(ua) || 
-                        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    // 2. Detectar Android Mobile (no tablets)
+    if (/Android.*Mobile/i.test(ua)) {
+        console.log('[BK Coupon] Detected: Android Mobile');
+        return true;
+    }
     
-    // También verificar si es un dispositivo táctil con pantalla pequeña
-    const isTouchSmallScreen = ('ontouchstart' in window) && 
-                               (window.screen.width <= 1024);
+    // 3. Detectar iPad - es móvil para esta experiencia
+    if (/iPad/i.test(ua)) {
+        console.log('[BK Coupon] Detected: iPad');
+        return true;
+    }
     
-    const result = isMobile || isIOSDevice || isTouchSmallScreen;
+    // 4. Detectar iPadOS (se hace pasar por Mac pero tiene touch y pantalla pequeña)
+    // iPads tienen max 1366px, MacBooks tienen más
+    if (navigator.platform === 'MacIntel' && 
+        navigator.maxTouchPoints > 1 && 
+        maxScreen <= 1366) {
+        console.log('[BK Coupon] Detected: iPadOS (Mac disguise)');
+        return true;
+    }
     
-    // Log para debug
-    console.log('[BK Coupon] User Agent:', ua);
-    console.log('[BK Coupon] isMobile UA:', isMobile);
-    console.log('[BK Coupon] isIOSDevice:', isIOSDevice);
-    console.log('[BK Coupon] isTouchSmallScreen:', isTouchSmallScreen);
-    console.log('[BK Coupon] RESULT:', result);
-    
-    return result;
+    // 5. Todo lo demás es desktop
+    console.log('[BK Coupon] Detected: Desktop');
+    console.log('[BK Coupon] UA:', ua);
+    console.log('[BK Coupon] Screen:', screenWidth, 'x', screenHeight);
+    return false;
 }
 
 /**
