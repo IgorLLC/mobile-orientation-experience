@@ -270,23 +270,28 @@ body.is-desktop-mode .desktop-view {
     height: 100%;
     z-index: 0;
     background: var(--bk-red);
+    overflow: hidden;
 }
 
-/* Patrón cuadriculado a la izquierda en landscape */
+/* Patrón cuadriculado a la izquierda en landscape - usando QUADRICULADO.png rotado */
 .checker-pattern {
     position: absolute;
-    left: 0;
-    top: 0;
-    width: clamp(30px, 8vw, 70px);
+    /* La imagen tiene el checker abajo, la rotamos -90deg para ponerlo a la izquierda */
+    transform: rotate(-90deg);
+    transform-origin: center center;
+    /* Dimensiones para que al rotar cubra bien */
+    width: 100vh;
+    height: 100vw;
+    /* Centrar después de rotación */
+    left: calc(50% - 50vh);
+    top: calc(50% - 50vw);
+}
+
+.checker-pattern img {
+    width: 100%;
     height: 100%;
-    background-color: var(--bk-cream);
-    background-image: 
-        linear-gradient(45deg, var(--bk-red) 25%, transparent 25%),
-        linear-gradient(-45deg, var(--bk-red) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, var(--bk-red) 75%),
-        linear-gradient(-45deg, transparent 75%, var(--bk-red) 75%);
-    background-size: clamp(12px, 2vw, 20px) clamp(12px, 2vw, 20px);
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    object-fit: cover;
+    object-position: center bottom;
 }
 
 /* Contenido Landscape */
@@ -425,28 +430,21 @@ body.is-desktop-mode .desktop-view {
     z-index: 100;
 }
 
-/* Patrón checker pequeño en la parte inferior del desktop */
-.desktop-view::after {
-    content: '';
+/* Fondo con QUADRICULADO.png en desktop */
+.desktop-background {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
-    right: 0;
-    height: 50px;
-    background-color: var(--bk-cream);
-    background-image: 
-        linear-gradient(45deg, var(--bk-red) 25%, transparent 25%),
-        linear-gradient(-45deg, var(--bk-red) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, var(--bk-red) 75%),
-        linear-gradient(-45deg, transparent 75%, var(--bk-red) 75%);
-    background-size: 12px 12px;
-    background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
-    z-index: 1;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
 }
 
-/* Ocultar el fondo de imagen en desktop */
-.desktop-background {
-    display: none;
+.desktop-background .background-pattern {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
 }
 
 .desktop-view .desktop-container {
@@ -455,14 +453,14 @@ body.is-desktop-mode .desktop-view {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    padding-bottom: 70px;
+    padding-bottom: 12vh; /* Espacio para el cuadriculado inferior */
     max-width: 450px;
     width: 100%;
     height: 100%;
     max-height: 100vh;
     animation: fadeInUp 0.5s ease-out;
     position: relative;
-    z-index: 2;
+    z-index: 1;
     gap: 20px;
 }
 
@@ -550,7 +548,7 @@ body.is-desktop-mode .desktop-view {
     position: relative;
 }
 
-/* Borde checker pequeño alrededor del QR */
+/* Borde simple alrededor del QR */
 .desktop-view .qr-container::before {
     content: '';
     position: absolute;
@@ -558,14 +556,7 @@ body.is-desktop-mode .desktop-view {
     left: -5px;
     right: -5px;
     bottom: -5px;
-    background-color: var(--bk-red);
-    background-image: 
-        linear-gradient(45deg, var(--bk-cream) 25%, transparent 25%),
-        linear-gradient(-45deg, var(--bk-cream) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, var(--bk-cream) 75%),
-        linear-gradient(-45deg, transparent 75%, var(--bk-cream) 75%);
-    background-size: 8px 8px;
-    background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+    background: var(--bk-red);
     border-radius: 14px;
     z-index: -1;
 }
