@@ -98,6 +98,29 @@ function generateQR() {
 window.isMobileDevice = isMobileDevice;
 
 /**
+ * Panel de debug temporal
+ */
+function showDebug() {
+    const ua = navigator.userAgent;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const orientation = w > h ? 'LANDSCAPE' : 'PORTRAIT';
+    const isMobile = isMobileDevice();
+    
+    const div = document.createElement('div');
+    div.style.cssText = 'position:fixed;top:0;left:0;right:0;background:rgba(0,0,0,0.9);color:#0f0;font:11px monospace;padding:10px;z-index:99999;';
+    div.innerHTML = `
+        <b>${isMobile ? 'MOBILE' : 'DESKTOP'}</b> | 
+        ${orientation} (${w}x${h}) | 
+        <span style="font-size:9px">${ua.substring(0, 80)}...</span>
+        <button onclick="this.parentElement.remove()" style="float:right;background:#333;color:#fff;border:none;padding:2px 8px;">X</button>
+    `;
+    document.body.appendChild(div);
+}
+window.showDebug = showDebug;
+document.addEventListener('DOMContentLoaded', showDebug);
+
+/**
  * ================================
  * APLICACIÓN PRINCIPAL
  * ================================
