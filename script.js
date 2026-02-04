@@ -22,8 +22,75 @@ function isMobileDevice() {
     return isMobile;
 }
 
+/**
+ * Panel de debug visible en pantalla
+ */
+function showDebugPanel() {
+    const ua = navigator.userAgent;
+    const isMobile = isMobileDevice();
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const screenW = window.screen.width;
+    const screenH = window.screen.height;
+    
+    // Crear panel de debug
+    const debugPanel = document.createElement('div');
+    debugPanel.id = 'debugPanel';
+    debugPanel.style.cssText = `
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        background: rgba(0,0,0,0.9);
+        color: #0f0;
+        font-family: monospace;
+        font-size: 11px;
+        padding: 15px;
+        border-radius: 8px;
+        z-index: 99999;
+        max-height: 200px;
+        overflow-y: auto;
+        border: 2px solid ${isMobile ? '#0f0' : '#f00'};
+    `;
+    
+    debugPanel.innerHTML = `
+        <div style="margin-bottom:8px;font-weight:bold;color:${isMobile ? '#0f0' : '#f00'}">
+            RESULTADO: ${isMobile ? 'MOBILE ✓' : 'NO MOBILE ✗'}
+        </div>
+        <div style="margin-bottom:5px"><strong>User Agent:</strong></div>
+        <div style="word-break:break-all;color:#fff;margin-bottom:10px;font-size:10px">${ua}</div>
+        <div><strong>Window:</strong> ${width} x ${height}</div>
+        <div><strong>Screen:</strong> ${screenW} x ${screenH}</div>
+        <div><strong>DPR:</strong> ${window.devicePixelRatio}</div>
+        <div><strong>Platform:</strong> ${navigator.platform}</div>
+        <div><strong>MaxTouchPoints:</strong> ${navigator.maxTouchPoints}</div>
+        <div style="margin-top:10px">
+            <strong>Tests:</strong><br>
+            iPhone/iPod: ${/iPhone|iPod/i.test(ua) ? '✓' : '✗'}<br>
+            Android Mobile: ${/Android.*Mobile/i.test(ua) ? '✓' : '✗'}<br>
+            Macintosh: ${/Macintosh/i.test(ua) ? '✓' : '✗'}<br>
+            Windows: ${/Windows/i.test(ua) ? '✓' : '✗'}
+        </div>
+        <button onclick="this.parentElement.remove()" style="
+            margin-top:10px;
+            background:#333;
+            color:#fff;
+            border:1px solid #666;
+            padding:5px 15px;
+            border-radius:4px;
+            cursor:pointer;
+        ">Cerrar</button>
+    `;
+    
+    document.body.appendChild(debugPanel);
+}
+
 // Exponer para debug
 window.isMobileDevice = isMobileDevice;
+window.showDebugPanel = showDebugPanel;
+
+// Mostrar panel de debug automáticamente
+document.addEventListener('DOMContentLoaded', showDebugPanel);
 
 /**
  * ================================
