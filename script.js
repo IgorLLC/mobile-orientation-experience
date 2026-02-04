@@ -12,14 +12,28 @@
 function isMobileDevice() {
     const ua = navigator.userAgent;
     
-    // Detectar móviles por User Agent - solo iPhone y Android Mobile
-    const isMobile = /iPhone|iPod|Android.*Mobile/i.test(ua);
+    // Detectar móviles por User Agent
+    // Incluye iPhone, iPod, iPad (para in-app browsers), Android Mobile
+    const isMobile = /iPhone|iPod|iPad|Android.*Mobile/i.test(ua);
+    
+    // También detectar por características de iOS (para in-app browsers como el lector de QR)
+    const isIOSDevice = /iPhone|iPod|iPad/i.test(ua) || 
+                        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    
+    // También verificar si es un dispositivo táctil con pantalla pequeña
+    const isTouchSmallScreen = ('ontouchstart' in window) && 
+                               (window.screen.width <= 1024);
+    
+    const result = isMobile || isIOSDevice || isTouchSmallScreen;
     
     // Log para debug
     console.log('[BK Coupon] User Agent:', ua);
-    console.log('[BK Coupon] Is Mobile:', isMobile);
+    console.log('[BK Coupon] isMobile UA:', isMobile);
+    console.log('[BK Coupon] isIOSDevice:', isIOSDevice);
+    console.log('[BK Coupon] isTouchSmallScreen:', isTouchSmallScreen);
+    console.log('[BK Coupon] RESULT:', result);
     
-    return isMobile;
+    return result;
 }
 
 /**
