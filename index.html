@@ -41,6 +41,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
+    <!-- Loader inicial mientras detecta dispositivo -->
+    <div class="initial-loader" id="initialLoader">
+        <div class="loader-spinner"></div>
+    </div>
+
     <!-- Vista Desktop/Tablet - Como portrait + QR -->
     <div class="desktop-view hidden" id="desktopView">
         <!-- Fondo con cuadriculado (como portrait) -->

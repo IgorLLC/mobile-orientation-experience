@@ -146,6 +146,19 @@ window.isMobileDevice = isMobileDevice;
     }
 
     /**
+     * Oculta el loader inicial
+     */
+    function hideInitialLoader() {
+        const loader = document.getElementById('initialLoader');
+        if (loader) {
+            loader.classList.add('hidden');
+            setTimeout(() => {
+                loader.remove();
+            }, 300);
+        }
+    }
+
+    /**
      * ================================
      * VIEW ROUTER
      * ================================
@@ -158,6 +171,9 @@ window.isMobileDevice = isMobileDevice;
         } else {
             showDesktopView();
         }
+        
+        // Ocultar loader después de detectar dispositivo
+        hideInitialLoader();
     }
 
     /**
