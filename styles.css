@@ -462,7 +462,7 @@ body.is-desktop-mode .desktop-view {
     animation: fadeInUp 0.5s ease-out;
     position: relative;
     z-index: 1;
-    gap: 30px;
+    gap: 50px; /* Más espacio entre elementos */
 }
 
 @keyframes fadeInUp {
@@ -486,9 +486,9 @@ body.is-desktop-mode .desktop-view {
 }
 
 .desktop-burger-image {
-    width: 320px;
+    width: 280px;
     height: auto;
-    max-height: 35vh;
+    max-height: 30vh;
     object-fit: contain;
     transform: rotate(90deg);
     filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.3));
