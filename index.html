@@ -41,20 +41,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
-    <!-- Vista Desktop/Tablet - Hamburguesa + QR -->
+    <!-- Vista Desktop/Tablet - Como portrait + QR -->
     <div class="desktop-view hidden" id="desktopView">
+        <!-- Fondo con cuadriculado (como portrait) -->
+        <div class="desktop-background">
+            <img src="assets/QUADRICULADO.png" alt="" class="background-pattern">
+        </div>
+        
         <div class="desktop-container">
             <!-- Hamburguesa rotada como en portrait -->
             <div class="desktop-burger">
                 <img src="assets/hamburger.png" alt="Whopper Dog" class="desktop-burger-image">
             </div>
             
+            <!-- Texto como en portrait -->
+            <div class="desktop-text">
+                <img src="assets/TEXTO_01.png" alt="Is it a hot dog? Is it a Whopper? Flip your phone and find out." class="desktop-text-image">
+            </div>
+            
             <!-- QR Code -->
             <div class="desktop-qr-section">
-                <p class="desktop-scan-text">Escanea para descubrir</p>
                 <div class="qr-wrapper">
                     <div class="qr-container" id="qrContainer"></div>
                 </div>
+                <p class="desktop-scan-text">Escanea con tu movil</p>
             </div>
         </div>
     </div>
