@@ -82,7 +82,7 @@ function generateQR() {
             text: currentURL,
             width: 180,
             height: 180,
-            colorDark: '#E4002B',
+            colorDark: '#d72300',
             colorLight: '#F5F0E1',
             correctLevel: QRCode.CorrectLevel.M
         });
