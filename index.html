@@ -41,29 +41,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
-    <!-- Vista Desktop/Tablet - Mensaje Solo Móviles con QR -->
+    <!-- Vista Desktop/Tablet - Hamburguesa + QR -->
     <div class="desktop-view hidden" id="desktopView">
         <div class="desktop-container">
-            <div class="desktop-message">
-                <!-- Icono de smartphone animado -->
-                <div class="phone-icon-wrapper">
-                    <div class="phone-icon-animated">
-                        <i data-lucide="smartphone" class="desktop-phone-icon"></i>
-                    </div>
-                    <div class="phone-glow"></div>
-                </div>
-                
-                <h2 class="desktop-title">Escanea con tu movil</h2>
-                <p class="desktop-subtitle">para descubrir el Whopper Dog</p>
-                
-                <!-- QR Code -->
+            <!-- Hamburguesa rotada como en portrait -->
+            <div class="desktop-burger">
+                <img src="assets/hamburger.png" alt="Whopper Dog" class="desktop-burger-image">
+            </div>
+            
+            <!-- QR Code -->
+            <div class="desktop-qr-section">
+                <p class="desktop-scan-text">Escanea para descubrir</p>
                 <div class="qr-wrapper">
                     <div class="qr-container" id="qrContainer"></div>
-                </div>
-                
-                <div class="mobile-hint">
-                    <i data-lucide="scan-line" class="hint-icon"></i>
-                    <span>Abre la camara y escanea el codigo QR</span>
                 </div>
             </div>
         </div>
