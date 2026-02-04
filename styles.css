@@ -426,21 +426,26 @@ body.is-desktop-mode .desktop-view {
     z-index: 100;
 }
 
-/* Fondo con QUADRICULADO.png en desktop */
+/* Franja de checker pequeña en la parte inferior del desktop */
 .desktop-background {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 40px;
     z-index: 0;
+    background-color: var(--bk-cream);
+    background-image: 
+        linear-gradient(45deg, var(--bk-red) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--bk-red) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--bk-red) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--bk-red) 75%);
+    background-size: 10px 10px;
+    background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
 }
 
 .desktop-background .background-pattern {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center bottom;
+    display: none; /* No usar la imagen en desktop */
 }
 
 .desktop-view .desktop-container {
@@ -449,7 +454,7 @@ body.is-desktop-mode .desktop-view {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    padding-bottom: 12vh; /* Espacio para el cuadriculado inferior */
+    padding-bottom: 60px; /* Espacio para el cuadriculado inferior */
     max-width: 550px;
     width: 100%;
     height: 100%;
