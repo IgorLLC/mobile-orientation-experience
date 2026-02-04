@@ -328,22 +328,6 @@ body.is-desktop-mode .desktop-view {
     }
 }
 
-/* ================================
-   Estilos del Logo BK
-   ================================ */
-.bk-logo {
-    display: block;
-}
-
-.bk-logo-small {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: auto;
-    z-index: 10;
-}
 
 /* ================================
    Overlay de Transicion
@@ -445,22 +429,6 @@ body.is-desktop-mode .desktop-view {
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-.desktop-view .bk-logo-desktop {
-    width: 140px;
-    height: auto;
-    margin-bottom: 50px;
-    animation: logoFloat 3s ease-in-out infinite;
-}
-
-@keyframes logoFloat {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
     }
 }
 
