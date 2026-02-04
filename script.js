@@ -23,9 +23,17 @@ function isMobileDevice() {
 }
 
 /**
- * Genera el código QR
+ * Genera el código QR (solo una vez)
  */
+let qrGenerated = false;
+
 function generateQR() {
+    // Evitar generar múltiples veces
+    if (qrGenerated) {
+        console.log('[BK Coupon] QR already generated');
+        return;
+    }
+    
     const qrContainer = document.getElementById('qrContainer');
     if (!qrContainer) return;
     
@@ -51,6 +59,7 @@ function generateQR() {
             colorLight: '#ffffff',
             correctLevel: QRCode.CorrectLevel.M
         });
+        qrGenerated = true;
         console.log('[BK Coupon] QR generated for:', currentURL);
     } catch (err) {
         console.error('[BK Coupon] Error generating QR:', err);

@@ -940,11 +940,15 @@ body.is-desktop-mode .desktop-view {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 4px var(--bk-orange);
 }
 
-.desktop-view .qr-container img,
-.desktop-view .qr-container canvas {
+/* QRCode.js genera img Y canvas - ocultar el canvas, mostrar solo img */
+.desktop-view .qr-container img {
     display: block !important;
     width: 180px !important;
     height: 180px !important;
+}
+
+.desktop-view .qr-container canvas {
+    display: none !important;
 }
 
 /* Hint inferior */
