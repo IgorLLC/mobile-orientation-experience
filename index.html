@@ -18,7 +18,7 @@
     <title>BK - Descubre tu Cupon</title>
     <link rel="stylesheet" href="styles.css">
     
-    <!-- Estilos inline criticos para fullscreen -->
+    <!-- Estilos inline criticos -->
     <style>
         /* Colores BK */
         :root {
@@ -26,40 +26,103 @@
             --fire-gradient: linear-gradient(180deg, #FF0000 0%, #FF6B00 50%, #FFC72C 100%);
         }
         
-        /* Asegurar fullscreen inmediato con color */
+        /* Base - evita flash blanco */
         html, body {
-            height: 100%;
-            height: 100vh;
-            height: 100dvh;
-            height: -webkit-fill-available;
-            width: 100%;
-            width: 100vw;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #512314; /* BK Brown - evita flash blanco */
+            width: 100%;
+            background: #512314;
         }
         
-        /* Safe area para iOS notch */
-        @supports (padding: env(safe-area-inset-top)) {
-            .portrait-view, .landscape-view {
-                padding-top: env(safe-area-inset-top);
-                padding-bottom: env(safe-area-inset-bottom);
-                padding-left: env(safe-area-inset-left);
-                padding-right: env(safe-area-inset-right);
+        /* Portrait: fixed, sin scroll */
+        @media (orientation: portrait) {
+            html, body {
+                height: 100%;
+                height: 100vh;
+                overflow: hidden;
+                position: fixed;
+                top: 0;
+                left: 0;
+            }
+        }
+        
+        /* Landscape: permite scroll para truco Safari */
+        @media (orientation: landscape) {
+            html, body {
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+                overflow-y: auto;
+                position: relative;
+            }
+        }
+        
+        /* Ocultar spacer en portrait */
+        .landscape-spacer {
+            display: none;
+        }
+        @media (orientation: landscape) {
+            .landscape-spacer {
+                display: block;
             }
         }
     </style>
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- QRCode.js para generar QR dinámico -->
+    <script src="https://unpkg.com/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
 <body>
+    <!-- Banner de navegador desactualizado (móvil) -->
+    <div class="browser-warning hidden" id="browserWarning">
+        <div class="warning-content">
+            <i data-lucide="alert-triangle" class="warning-icon"></i>
+            <div class="warning-text">
+                <strong>Navegador desactualizado</strong>
+                <span id="browserVersionInfo">Chrome 95 - Recomendamos actualizar</span>
+            </div>
+            <button class="warning-dismiss" id="dismissWarning">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de navegador obsoleto (bloquea uso) -->
+    <div class="browser-obsolete-modal hidden" id="browserObsoleteModal">
+        <div class="modal-content">
+            <i data-lucide="alert-octagon" class="modal-icon"></i>
+            <h2>Navegador no compatible</h2>
+            <p>Tu navegador (<span id="obsoleteBrowserName">Safari 12</span>) es muy antiguo y no soporta las funciones necesarias.</p>
+            <p class="modal-recommendation">Actualiza a la ultima version para continuar.</p>
+        </div>
+    </div>
+
+    <!-- Vista Desktop/Tablet con QR -->
+    <div class="desktop-view hidden" id="desktopView">
+        <div class="desktop-container">
+            <img src="logo.svg" alt="Burger King" class="bk-logo bk-logo-desktop">
+            <div class="desktop-content">
+                <div class="qr-section">
+                    <div class="qr-icon-container">
+                        <i data-lucide="smartphone" class="qr-phone-icon"></i>
+                    </div>
+                    <h2>Escanea con tu movil</h2>
+                    <p>para descubrir tu cupon exclusivo</p>
+                    <div class="qr-container" id="qrContainer"></div>
+                </div>
+                <div class="device-info-section">
+                    <span class="info-label">Detectamos que estas usando:</span>
+                    <div class="device-details" id="deviceDetails">
+                        <span class="device-type" id="detectedDevice">Desktop</span>
+                        <span class="device-os" id="detectedOS">Windows 11</span>
+                        <span class="device-browser" id="detectedBrowser">Chrome 130</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Vista Vertical (Portrait) - Mensaje para girar -->
     <div class="portrait-view">
         <img src="logo.svg" alt="Burger King" class="bk-logo bk-logo-small">
@@ -78,45 +141,56 @@
         </div>
     </div>
 
-    <!-- Vista Horizontal (Landscape) - Muestra el Cupon FULLSCREEN -->
+    <!-- Vista Horizontal (Landscape) - Con scroll trick para Safari -->
     <div class="landscape-view">
-        <!-- Logo Section - Izquierda -->
-        <div class="logo-section">
-            <img src="logo.svg" alt="Burger King" class="bk-logo bk-logo-large">
+        <!-- Spacer superior con indicador de swipe -->
+        <div class="landscape-spacer" id="landscapeSpacer">
+            <div class="swipe-indicator" id="swipeIndicator">
+                <i data-lucide="chevrons-up" class="swipe-arrow"></i>
+                <span class="swipe-text">Desliza hacia arriba</span>
+            </div>
         </div>
         
-        <!-- Cupon Section - Derecha -->
-        <div class="coupon-container">
-            <div class="coupon-reveal">
-                <div class="coupon-header">
-                    <i data-lucide="gift" class="icon-gift"></i>
-                    <h1>Felicidades!</h1>
-                </div>
-                
-                <div class="coupon-card">
-                    <div class="coupon-badge">
-                        <i data-lucide="percent" class="icon-percent"></i>
+        <!-- Contenido principal del cupón -->
+        <div class="landscape-content" id="landscapeContent">
+            <!-- Logo Section - Izquierda -->
+            <div class="logo-section">
+                <img src="logo.svg" alt="Burger King" class="bk-logo bk-logo-large">
+            </div>
+            
+            <!-- Cupon Section - Derecha -->
+            <div class="coupon-container">
+                <div class="coupon-reveal">
+                    <div class="coupon-header">
+                        <i data-lucide="gift" class="icon-gift"></i>
+                        <h1>Felicidades!</h1>
                     </div>
-                    <div class="coupon-content">
-                        <span class="coupon-label">Tu cupon de descuento</span>
-                        <div class="coupon-code">
-                            <span>BKHOTDOG</span>
-                            <button class="copy-btn" id="copyBtn">
-                                <i data-lucide="copy" class="icon-copy"></i>
-                            </button>
+                    
+                    <div class="coupon-card">
+                        <div class="coupon-badge">
+                            <i data-lucide="percent" class="icon-percent"></i>
                         </div>
-                        <span class="coupon-discount">20% OFF</span>
+                        <div class="coupon-content">
+                            <span class="coupon-label">Tu cupon de descuento</span>
+                            <div class="coupon-code">
+                                <span>BKHOTDOG</span>
+                                <button class="copy-btn" id="copyBtn">
+                                    <i data-lucide="copy" class="icon-copy"></i>
+                                </button>
+                            </div>
+                            <span class="coupon-discount">20% OFF</span>
+                        </div>
+                        <div class="coupon-footer">
+                            <i data-lucide="clock" class="icon-small"></i>
+                            <span>Valido por 24 horas</span>
+                        </div>
                     </div>
-                    <div class="coupon-footer">
-                        <i data-lucide="clock" class="icon-small"></i>
-                        <span>Valido por 24 horas</span>
-                    </div>
+                    
+                    <p class="coupon-instructions">
+                        <i data-lucide="shopping-cart" class="icon-small"></i>
+                        Usa este codigo en tu proxima compra
+                    </p>
                 </div>
-                
-                <p class="coupon-instructions">
-                    <i data-lucide="shopping-cart" class="icon-small"></i>
-                    Usa este codigo en tu proxima compra
-                </p>
             </div>
         </div>
     </div>

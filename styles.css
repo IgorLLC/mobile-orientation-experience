@@ -87,32 +87,104 @@ body {
 }
 
 /* ================================
-   Media Query: Landscape (Horizontal) - PANTALLA COMPLETA
+   Media Query: Landscape (Horizontal) - TRUCO SCROLL SAFARI
    ================================ */
 @media (orientation: landscape) {
     html, body {
         width: 100vw;
-        height: 100vh;
-        height: var(--real-vh, 100vh);
-        overflow: hidden;
+        height: auto;
+        min-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto; /* Permitir scroll vertical */
     }
     
     .landscape-view {
         display: flex;
-        flex-direction: row;
+        flex-direction: column; /* Columna para apilar spacer + contenido */
         justify-content: flex-start;
         align-items: stretch;
         width: 100vw;
-        height: 100vh;
-        height: var(--real-vh, 100vh);
+        min-height: 150vh; /* Más alto que la pantalla para forzar scroll */
         padding: 0;
         margin: 0;
         gap: 0;
-        overflow: hidden;
+        overflow: visible;
         background: var(--fire-gradient);
-        position: fixed;
-        top: 0;
-        left: 0;
+        position: relative; /* No fixed para permitir scroll */
+    }
+    
+    /* Spacer superior - empuja el contenido hacia abajo */
+    .landscape-spacer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        height: 50vh;
+        flex-shrink: 0;
+        padding-bottom: 30px;
+    }
+    
+    /* Indicador de swipe */
+    .swipe-indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        animation: fadeInUp 0.5s ease-out;
+    }
+    
+    .swipe-arrow {
+        width: 48px;
+        height: 48px;
+        color: var(--bk-yellow);
+        animation: bounceUp 1s ease-in-out infinite;
+        filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+    }
+    
+    .swipe-text {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    @keyframes bounceUp {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-15px);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Ocultar indicador después del scroll */
+    .swipe-indicator.hidden {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    
+    /* Contenedor principal del cupón */
+    .landscape-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: stretch;
+        width: 100%;
+        min-height: 100vh;
+        flex-shrink: 0;
     }
     
     .portrait-view {
@@ -130,7 +202,7 @@ body {
         justify-content: center;
         width: 30%;
         min-width: 30%;
-        height: 100%;
+        min-height: 100vh;
         padding: 20px;
         background: rgba(0, 0, 0, 0.2);
     }
@@ -142,12 +214,12 @@ body {
         height: auto;
     }
     
-    /* Cupon ocupa el resto - FULLSCREEN */
-    .landscape-view .coupon-container {
+    /* Cupon ocupa el resto */
+    .landscape-content .coupon-container {
         flex: 1;
         width: 70%;
         max-width: none;
-        height: 100%;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -652,21 +724,559 @@ body {
     }
 }
 
-/* Quitar mensaje de desktop para que funcione en landscape */
-@media (min-width: 1024px) and (orientation: portrait) {
-    body::before {
-        content: 'Esta experiencia esta disenada para dispositivos moviles';
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: var(--bk-brown);
-        padding: 30px 40px;
-        border-radius: 12px;
+/* ================================
+   Clase utility para ocultar elementos
+   ================================ */
+.hidden {
+    display: none !important;
+}
+
+/* ================================
+   Banner de Navegador Desactualizado
+   ================================ */
+.browser-warning {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9998;
+    background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+    padding: 12px 16px;
+    padding-top: calc(12px + env(safe-area-inset-top, 0px));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.browser-warning .warning-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.browser-warning .warning-icon {
+    width: 24px;
+    height: 24px;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.browser-warning .warning-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+.browser-warning .warning-text strong {
+    font-weight: 600;
+}
+
+.browser-warning .warning-text span {
+    opacity: 0.9;
+    font-size: 0.75rem;
+}
+
+.browser-warning .warning-dismiss {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+    min-width: 36px;
+    min-height: 36px;
+}
+
+.browser-warning .warning-dismiss:active {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.browser-warning .warning-dismiss i {
+    width: 18px;
+    height: 18px;
+    color: #fff;
+}
+
+/* ================================
+   Modal de Navegador Obsoleto
+   ================================ */
+.browser-obsolete-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.browser-obsolete-modal .modal-content {
+    background: var(--bk-brown);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    max-width: 380px;
+    width: 100%;
+    border: 3px solid var(--bk-red);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.browser-obsolete-modal .modal-icon {
+    width: 64px;
+    height: 64px;
+    color: var(--bk-red);
+    margin-bottom: 20px;
+}
+
+.browser-obsolete-modal h2 {
+    font-size: 1.5rem;
+    color: var(--bk-yellow);
+    margin-bottom: 16px;
+}
+
+.browser-obsolete-modal p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.browser-obsolete-modal .modal-recommendation {
+    color: var(--bk-orange);
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+/* ================================
+   Vista Desktop/Tablet con QR
+   ================================ */
+.desktop-view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, var(--bk-brown) 0%, #2d1408 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.desktop-view .desktop-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.desktop-view .bk-logo-desktop {
+    width: 120px;
+    height: auto;
+    margin-bottom: 40px;
+}
+
+.desktop-view .desktop-content {
+    text-align: center;
+    width: 100%;
+}
+
+.desktop-view .qr-section {
+    margin-bottom: 40px;
+}
+
+.desktop-view .qr-icon-container {
+    margin-bottom: 20px;
+}
+
+.desktop-view .qr-phone-icon {
+    width: 64px;
+    height: 64px;
+    color: var(--bk-yellow);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.desktop-view .qr-section h2 {
+    font-size: 1.8rem;
+    color: var(--bk-yellow);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.desktop-view .qr-section p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+}
+
+.desktop-view .qr-container {
+    display: inline-block;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.desktop-view .qr-container img,
+.desktop-view .qr-container canvas {
+    display: block;
+    width: 200px;
+    height: 200px;
+}
+
+.desktop-view .device-info-section {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.desktop-view .info-label {
+    display: block;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 12px;
+}
+
+.desktop-view .device-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.desktop-view .device-details span {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.desktop-view .device-type {
+    font-weight: 600;
+    color: var(--bk-yellow) !important;
+}
+
+.desktop-view .device-os {
+    color: var(--bk-orange) !important;
+}
+
+.desktop-view .device-browser {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ================================
+   Responsive: Móviles Pequeños (iPhone SE, Mini < 375px)
+   ================================ */
+@media (max-width: 374px) {
+    .rotate-message h2 {
+        font-size: clamp(1.3rem, 5vw, 1.6rem);
+    }
+    
+    .rotate-message p {
+        font-size: clamp(0.9rem, 4vw, 1rem);
+    }
+    
+    .icon-phone {
+        width: clamp(60px, 18vw, 70px);
+        height: clamp(60px, 18vw, 70px);
+    }
+    
+    .bk-logo-small {
+        width: clamp(60px, 18vw, 70px);
+    }
+    
+    .coupon-header h1 {
+        font-size: clamp(1.3rem, 6vw, 1.6rem);
+    }
+    
+    .coupon-header .icon-gift {
+        width: clamp(48px, 14vw, 56px);
+        height: clamp(48px, 14vw, 56px);
+    }
+    
+    .coupon-code span {
+        font-size: clamp(1.2rem, 5vw, 1.5rem);
+        letter-spacing: 2px;
+    }
+    
+    .coupon-discount {
+        font-size: clamp(1.8rem, 8vw, 2.2rem);
+    }
+    
+    .coupon-card {
+        padding: 18px;
+    }
+    
+    .coupon-code {
+        padding: 12px 18px;
+    }
+}
+
+/* ================================
+   Responsive: Móviles Estándar (iPhone 14, Pixel 375px - 413px)
+   ================================ */
+@media (min-width: 375px) and (max-width: 413px) {
+    .rotate-message h2 {
+        font-size: clamp(1.5rem, 5vw, 1.8rem);
+    }
+    
+    .rotate-message p {
+        font-size: clamp(1rem, 4vw, 1.1rem);
+    }
+    
+    .coupon-header h1 {
+        font-size: clamp(1.6rem, 6vw, 2rem);
+    }
+    
+    .coupon-code span {
+        font-size: clamp(1.4rem, 5vw, 1.8rem);
+    }
+    
+    .coupon-discount {
+        font-size: clamp(2rem, 8vw, 2.5rem);
+    }
+}
+
+/* ================================
+   Responsive: Móviles Grandes (iPhone Plus, Pro Max > 414px)
+   ================================ */
+@media (min-width: 414px) and (max-width: 767px) {
+    .rotate-message h2 {
+        font-size: clamp(1.8rem, 5vw, 2rem);
+    }
+    
+    .rotate-message p {
+        font-size: clamp(1.1rem, 3.5vw, 1.2rem);
+    }
+    
+    .icon-phone {
+        width: clamp(80px, 20vw, 100px);
+        height: clamp(80px, 20vw, 100px);
+    }
+    
+    .coupon-header h1 {
+        font-size: clamp(2rem, 5vw, 2.2rem);
+    }
+    
+    .coupon-header .icon-gift {
+        width: clamp(64px, 16vw, 80px);
+        height: clamp(64px, 16vw, 80px);
+    }
+    
+    .coupon-code span {
+        font-size: clamp(1.8rem, 5vw, 2rem);
+    }
+    
+    .coupon-discount {
+        font-size: clamp(2.5rem, 8vw, 3rem);
+    }
+}
+
+/* ================================
+   Responsive: Altura pequeña (iPhone SE, mini pantallas)
+   ================================ */
+@media (max-height: 667px) and (orientation: portrait) {
+    .rotate-message {
+        padding: 20px;
+    }
+    
+    .rotate-icon-container {
+        margin-bottom: 16px;
+    }
+    
+    .icon-phone {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .icon-rotate {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .rotate-message h2 {
+        font-size: 1.4rem;
+        margin-bottom: 4px;
+    }
+    
+    .rotate-message p {
+        font-size: 0.95rem;
+        margin-bottom: 16px;
+    }
+    
+    .bk-logo-small {
+        width: 60px;
+        top: 15px;
+    }
+}
+
+/* ================================
+   Responsive: Altura grande (iPhone Pro Max, pantallas altas)
+   ================================ */
+@media (min-height: 844px) and (orientation: portrait) {
+    .rotate-message {
+        padding: 50px;
+    }
+    
+    .rotate-icon-container {
+        margin-bottom: 32px;
+    }
+    
+    .icon-phone {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .rotate-message h2 {
+        font-size: 2rem;
+        margin-bottom: 12px;
+    }
+    
+    .rotate-message p {
+        font-size: 1.2rem;
+        margin-bottom: 32px;
+    }
+    
+    .bk-logo-small {
+        width: 100px;
+        top: 30px;
+    }
+}
+
+/* ================================
+   Responsive: Landscape en móviles pequeños
+   ================================ */
+@media (orientation: landscape) and (max-height: 400px) {
+    .landscape-view .coupon-header .icon-gift {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .landscape-view .coupon-header h1 {
         font-size: 1.1rem;
-        text-align: center;
-        z-index: 9999;
-        color: var(--bk-yellow);
-        border: 2px solid var(--bk-orange);
+        margin-top: 4px;
+    }
+    
+    .landscape-view .coupon-card {
+        padding: 12px 16px;
+        max-width: 280px;
+    }
+    
+    .landscape-view .coupon-code {
+        padding: 8px 12px;
+    }
+    
+    .landscape-view .coupon-code span {
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+    }
+    
+    .landscape-view .coupon-discount {
+        font-size: 1.3rem;
+    }
+    
+    .landscape-view .coupon-footer {
+        padding-top: 6px;
+        font-size: 0.65rem;
+    }
+    
+    .landscape-view .coupon-instructions {
+        font-size: 0.65rem;
+        margin-top: 8px;
+    }
+    
+    .logo-section .bk-logo-large {
+        max-width: 100px;
+    }
+    
+    .landscape-spacer {
+        height: 40vh;
+    }
+    
+    .swipe-arrow {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .swipe-text {
+        font-size: 0.85rem;
+    }
+}
+
+/* ================================
+   Responsive: Landscape en móviles grandes
+   ================================ */
+@media (orientation: landscape) and (min-height: 400px) {
+    .landscape-view .coupon-header .icon-gift {
+        width: clamp(36px, 8vh, 48px);
+        height: clamp(36px, 8vh, 48px);
+    }
+    
+    .landscape-view .coupon-header h1 {
+        font-size: clamp(1.2rem, 3vh, 1.5rem);
+    }
+    
+    .landscape-view .coupon-card {
+        max-width: clamp(280px, 50vw, 360px);
+        padding: clamp(12px, 3vh, 20px);
+    }
+    
+    .landscape-view .coupon-code span {
+        font-size: clamp(1.2rem, 3vh, 1.5rem);
+    }
+    
+    .landscape-view .coupon-discount {
+        font-size: clamp(1.4rem, 4vh, 2rem);
+    }
+}
+
+/* ================================
+   Safe Areas para notch/Dynamic Island
+   ================================ */
+@supports (padding: env(safe-area-inset-top)) {
+    .portrait-view {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+    
+    .landscape-view {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+    
+    .bk-logo-small {
+        top: calc(20px + env(safe-area-inset-top));
+    }
+    
+    @media (max-height: 667px) and (orientation: portrait) {
+        .bk-logo-small {
+            top: calc(15px + env(safe-area-inset-top));
+        }
     }
 }
