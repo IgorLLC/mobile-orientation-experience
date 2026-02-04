@@ -408,13 +408,19 @@ window.isMobileDevice = isMobileDevice;
      * Inicialización
      */
     function init() {
-        updateViewportHeight();
-        currentOrientation = getOrientation();
-        initListeners();
-        preventZoom();
-        
-        // Routing inicial según dispositivo
-        routeView();
+        try {
+            updateViewportHeight();
+            currentOrientation = getOrientation();
+            initListeners();
+            preventZoom();
+            
+            // Routing inicial según dispositivo
+            routeView();
+        } catch (err) {
+            console.error('[BK Whopper Dog] Init error:', err);
+            // Asegurar que el loader se oculte incluso si hay error
+            hideInitialLoader();
+        }
         
         window.addEventListener('load', () => {
             updateViewportHeight();
@@ -424,6 +430,11 @@ window.isMobileDevice = isMobileDevice;
             }
         });
     }
+
+    // Timeout de seguridad: ocultar loader después de 3 segundos máximo
+    setTimeout(() => {
+        hideInitialLoader();
+    }, 3000);
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
