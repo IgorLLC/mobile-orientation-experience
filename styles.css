@@ -67,38 +67,53 @@ body {
 }
 
 /* ================================
+   Modo Desktop: Ocultar vistas móviles
+   ================================ */
+body.is-desktop-mode .portrait-view,
+body.is-desktop-mode .landscape-view {
+    display: none !important;
+}
+
+body.is-desktop-mode .desktop-view {
+    display: flex !important;
+}
+
+/* ================================
    Media Query: Portrait (Vertical) - Mensaje girar
+   Solo aplica en modo móvil
    ================================ */
 @media (orientation: portrait) {
-    .portrait-view {
+    body:not(.is-desktop-mode) .portrait-view {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
     
-    .landscape-view {
+    body:not(.is-desktop-mode) .landscape-view {
         display: none !important;
     }
     
-    body {
+    body:not(.is-desktop-mode) {
         background: linear-gradient(180deg, var(--bk-brown) 0%, #2d1408 100%);
     }
 }
 
 /* ================================
    Media Query: Landscape (Horizontal) - TRUCO SCROLL SAFARI
+   Solo aplica en modo móvil
    ================================ */
 @media (orientation: landscape) {
-    html, body {
+    body:not(.is-desktop-mode) {
         width: 100vw;
         height: auto;
         min-height: 100vh;
         overflow-x: hidden;
         overflow-y: auto; /* Permitir scroll vertical */
+        position: relative;
     }
     
-    .landscape-view {
+    body:not(.is-desktop-mode) .landscape-view {
         display: flex;
         flex-direction: column; /* Columna para apilar spacer + contenido */
         justify-content: flex-start;
@@ -114,7 +129,7 @@ body {
     }
     
     /* Spacer superior - empuja el contenido hacia abajo */
-    .landscape-spacer {
+    body:not(.is-desktop-mode) .landscape-spacer {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -177,7 +192,7 @@ body {
     }
     
     /* Contenedor principal del cupón */
-    .landscape-content {
+    body:not(.is-desktop-mode) .landscape-content {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -187,16 +202,16 @@ body {
         flex-shrink: 0;
     }
     
-    .portrait-view {
+    body:not(.is-desktop-mode) .portrait-view {
         display: none !important;
     }
     
-    body {
+    body:not(.is-desktop-mode) {
         background: var(--fire-gradient);
     }
     
     /* Seccion del logo - lado izquierdo */
-    .logo-section {
+    body:not(.is-desktop-mode) .logo-section {
         display: flex;
         align-items: center;
         justify-content: center;

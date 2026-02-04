@@ -595,6 +595,9 @@ window.DeviceDetector = DeviceDetector;
         if (currentViewMode === 'mobile') return;
         currentViewMode = 'mobile';
         
+        // Quitar clase de modo desktop del body
+        document.body.classList.remove('is-desktop-mode');
+        
         // Ocultar vista desktop
         if (desktopView) {
             desktopView.classList.add('hidden');
@@ -618,6 +621,9 @@ window.DeviceDetector = DeviceDetector;
     function showDesktopView() {
         if (currentViewMode === 'desktop') return;
         currentViewMode = 'desktop';
+        
+        // Agregar clase de modo desktop al body
+        document.body.classList.add('is-desktop-mode');
         
         // Ocultar vistas móviles
         if (portraitView) {
