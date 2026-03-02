@@ -261,6 +261,14 @@ window.isMobileDevice = isMobileDevice;
                 
                 currentOrientation = newOrientation;
                 updateViewportHeight();
+
+                // Track orientation change
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'orientation_change', {
+                        event_category: 'engagement',
+                        event_label: newOrientation
+                    });
+                }
             }
         }, 50);
     }
@@ -301,15 +309,21 @@ window.isMobileDevice = isMobileDevice;
     }
 
     function showCopyFeedback() {
-        // Agregar clase de animación a la imagen
         if (couponElement) {
             couponElement.classList.add('copied');
             setTimeout(() => {
                 couponElement.classList.remove('copied');
             }, 300);
         }
-        
-        // Mostrar toast de confirmación
+
+        // Track coupon copy event
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'coupon_copied', {
+                event_category: 'engagement',
+                event_label: 'BKWHOPPERDOG'
+            });
+        }
+
         showToast('Codigo copiado: BKWHOPPERDOG');
     }
 
