@@ -347,13 +347,13 @@ body.is-desktop-mode .desktop-view {
 /* Hamburguesa Landscape - esquina inferior derecha */
 .landscape-burger {
     position: absolute;
-    bottom: -8vh;
-    right: -5vw;
+    bottom: -18vh;
+    right: -8vw;
     overflow: visible;
 }
 
 .landscape-burger .burger-image {
-    width: clamp(300px, 85vh, 700px);
+    width: clamp(300px, 100vh, 800px);
     height: auto;
     object-fit: contain;
     transform: rotate(-90deg);
