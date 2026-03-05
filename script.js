@@ -164,9 +164,11 @@ window.isMobileDevice = isMobileDevice;
      * ================================
      */
     function routeView() {
+        const params = new URLSearchParams(window.location.search);
+        const fromApp = params.get('source') === 'bkpr';
         const isMobile = isMobileDevice();
 
-        if (isMobile) {
+        if (fromApp || isMobile) {
             showMobileView();
         } else {
             showDesktopView();
