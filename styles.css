@@ -189,7 +189,7 @@ body.is-desktop-mode .desktop-view {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center bottom;
+    object-position: center top;
 }
 
 .portrait-content {
@@ -202,24 +202,26 @@ body.is-desktop-mode .desktop-view {
     width: 100%;
     height: 100%;
     padding: 3vw;
-    padding-top: 3vh;
-    padding-bottom: 10vh; /* Espacio para el patron cuadriculado */
+    padding-top: 8vh;
+    padding-bottom: 4vh;
 }
 
-/* Hamburguesa Portrait - rotada 90 grados, grande y centrada arriba */
+/* Hamburguesa Portrait - debajo del texto, sin cortar */
 .portrait-burger {
-    width: clamp(200px, 65vw, 400px);
+    width: 100%;
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    max-height: 55vh;
+    overflow: visible;
+    min-height: 0;
 }
 
 .portrait-burger .burger-image {
-    width: 100%;
+    width: auto;
     height: auto;
-    max-height: 50vh;
+    max-width: 90vw;
+    max-height: 58vh;
     object-fit: contain;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
     animation: burgerFloat 3s ease-in-out infinite;
@@ -234,7 +236,7 @@ body.is-desktop-mode .desktop-view {
     }
 }
 
-/* Texto Portrait - debajo de la hamburguesa, con más espacio */
+/* Texto Portrait - arriba, antes de la hamburguesa */
 .portrait-content .text-container {
     width: 100%;
     max-width: 90vw;
@@ -243,7 +245,7 @@ body.is-desktop-mode .desktop-view {
     justify-content: center;
     align-items: center;
     flex: 0 0 auto;
-    margin-top: 8vh;
+    margin-top: 0;
     padding-bottom: 2vh;
 }
 
@@ -622,13 +624,9 @@ body.is-desktop-mode .desktop-view {
    Responsive: Móviles muy pequeños (< 350px)
    ================================ */
 @media (max-width: 350px) and (orientation: portrait) {
-    .portrait-burger {
-        width: 55vw;
-        max-height: 45vh;
-    }
-    
     .portrait-burger .burger-image {
-        max-height: 42vh;
+        max-width: 85vw;
+        max-height: 52vh;
     }
     
     .portrait-content .text-image {
@@ -643,17 +641,13 @@ body.is-desktop-mode .desktop-view {
 @media (max-height: 600px) and (orientation: portrait) {
     .portrait-content {
         padding: 2vw;
-        padding-top: 2vh;
-        padding-bottom: 8vh;
-    }
-    
-    .portrait-burger {
-        width: 55vw;
-        max-height: 45vh;
+        padding-top: 6vh;
+        padding-bottom: 2vh;
     }
     
     .portrait-burger .burger-image {
-        max-height: 42vh;
+        max-width: 85vw;
+        max-height: 48vh;
     }
     
     .portrait-content .text-image {
@@ -666,13 +660,9 @@ body.is-desktop-mode .desktop-view {
    Responsive: Altura pequeña Portrait (600-700px)
    ================================ */
 @media (min-height: 600px) and (max-height: 700px) and (orientation: portrait) {
-    .portrait-burger {
-        width: 60vw;
-        max-height: 48vh;
-    }
-    
     .portrait-burger .burger-image {
-        max-height: 45vh;
+        max-width: 88vw;
+        max-height: 52vh;
     }
     
     .portrait-content .text-image {
@@ -685,13 +675,9 @@ body.is-desktop-mode .desktop-view {
    Responsive: Altura grande Portrait (> 800px)
    ================================ */
 @media (min-height: 800px) and (orientation: portrait) {
-    .portrait-burger {
-        width: 65vw;
-        max-height: 52vh;
-    }
-    
     .portrait-burger .burger-image {
-        max-height: 50vh;
+        max-width: 90vw;
+        max-height: 60vh;
     }
     
     .portrait-content .text-image {
