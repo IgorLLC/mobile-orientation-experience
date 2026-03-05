@@ -301,6 +301,7 @@ body.is-desktop-mode .desktop-view {
     justify-content: flex-start;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     padding: 3vh 3vw;
     padding-left: clamp(60px, 14vw, 120px);
     gap: clamp(15px, 4vw, 40px);
@@ -336,25 +337,31 @@ body.is-desktop-mode .desktop-view {
 .landscape-right {
     flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 0; /* Permite que flexbox reduzca */
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-width: 0;
+    align-self: stretch;
 }
 
-/* Hamburguesa Landscape - más grande como referencia */
+/* Hamburguesa Landscape - esquina inferior derecha, parcialmente fuera */
 .landscape-burger {
-    width: 100%;
+    flex: 0 0 auto;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: -5vh;
+    margin-right: -5vw;
+    overflow: visible;
 }
 
 .landscape-burger .burger-image {
-    width: clamp(220px, 55vw, 550px);
+    width: auto;
     height: auto;
-    max-height: 90vh;
+    max-width: 60vw;
+    max-height: 110vh;
     object-fit: contain;
     transform: rotate(-90deg);
+    transform-origin: center center;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
     animation: burgerPulse 3s ease-in-out infinite;
 }
