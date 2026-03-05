@@ -368,6 +368,51 @@ body.is-desktop-mode .desktop-view {
 
 
 /* ================================
+   Coupon Code - Landscape
+   ================================ */
+.coupon-code-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bk-cream);
+    border-radius: 50px;
+    padding: clamp(8px, 1.5vh, 14px) clamp(14px, 3vw, 24px);
+    cursor: pointer;
+    margin-top: clamp(8px, 1.5vh, 16px);
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.coupon-code-wrapper:active {
+    transform: scale(0.97);
+    opacity: 0.85;
+}
+
+.coupon-code-text {
+    font-size: clamp(0.75rem, 2vw, 1rem);
+    font-weight: 800;
+    color: var(--bk-red);
+    letter-spacing: 0.05em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.coupon-copy-icon {
+    display: flex;
+    align-items: center;
+    color: var(--bk-red);
+}
+
+.coupon-copy-icon svg {
+    width: clamp(14px, 2vw, 18px);
+    height: clamp(14px, 2vw, 18px);
+    stroke: var(--bk-red);
+}
+
+.coupon-code-wrapper.copied {
+    animation: copyPulse 0.3s ease-out;
+}
+
+/* ================================
    Overlay de Transicion
    ================================ */
 .transition-overlay {
