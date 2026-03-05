@@ -351,16 +351,17 @@ body.is-desktop-mode .desktop-view {
     height: auto;
     max-height: 90vh;
     object-fit: contain;
+    transform: rotate(90deg);
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
     animation: burgerPulse 3s ease-in-out infinite;
 }
 
 @keyframes burgerPulse {
     0%, 100% {
-        transform: scale(1);
+        transform: rotate(90deg) scale(1);
     }
     50% {
-        transform: scale(1.02);
+        transform: rotate(90deg) scale(1.02);
     }
 }
 
