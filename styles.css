@@ -349,16 +349,16 @@ body.is-desktop-mode .desktop-view {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    margin-bottom: -5vh;
-    margin-right: -5vw;
+    margin-bottom: -12vh;
+    margin-right: -14vw;
     overflow: visible;
 }
 
 .landscape-burger .burger-image {
     width: auto;
     height: auto;
-    max-width: 60vw;
-    max-height: 110vh;
+    max-width: 85vw;
+    max-height: 160vh;
     object-fit: contain;
     transform: rotate(-90deg);
     transform-origin: center center;
