@@ -164,8 +164,14 @@ window.isMobileDevice = isMobileDevice;
      * ================================
      */
     function routeView() {
-        // Siempre mostrar experiencia móvil (para embed en Sanity)
-        showMobileView();
+        const isMobile = isMobileDevice();
+
+        if (isMobile) {
+            showMobileView();
+        } else {
+            showDesktopView();
+        }
+
         hideInitialLoader();
     }
 
