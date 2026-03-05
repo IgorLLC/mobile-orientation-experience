@@ -206,22 +206,22 @@ body.is-desktop-mode .desktop-view {
     padding-bottom: 4vh;
 }
 
-/* Hamburguesa Portrait - debajo del texto, sin cortar */
+/* Hamburguesa Portrait - anclada al fondo */
 .portrait-burger {
     width: 100%;
-    flex: 1;
+    flex: 0 0 auto;
+    margin-top: auto;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     overflow: visible;
-    min-height: 0;
 }
 
 .portrait-burger .burger-image {
     width: auto;
     height: auto;
-    max-width: 90vw;
-    max-height: 58vh;
+    max-width: 95vw;
+    max-height: 65vh;
     object-fit: contain;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
     animation: burgerFloat 3s ease-in-out infinite;
