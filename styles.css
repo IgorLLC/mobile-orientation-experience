@@ -221,17 +221,16 @@ body.is-desktop-mode .desktop-view {
     height: auto;
     max-height: 50vh;
     object-fit: contain;
-    transform: rotate(90deg);
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
     animation: burgerFloat 3s ease-in-out infinite;
 }
 
 @keyframes burgerFloat {
     0%, 100% {
-        transform: rotate(90deg) translateX(0);
+        transform: translateY(0);
     }
     50% {
-        transform: rotate(90deg) translateX(-10px);
+        transform: translateY(-10px);
     }
 }
 
@@ -490,17 +489,16 @@ body.is-desktop-mode .desktop-view {
     height: auto;
     max-height: 26vh;
     object-fit: contain;
-    transform: rotate(90deg);
     filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.3));
     animation: desktopBurgerFloat 3s ease-in-out infinite;
 }
 
 @keyframes desktopBurgerFloat {
     0%, 100% {
-        transform: rotate(90deg) translateX(0);
+        transform: translateY(0);
     }
     50% {
-        transform: rotate(90deg) translateX(-8px);
+        transform: translateY(-8px);
     }
 }
 
