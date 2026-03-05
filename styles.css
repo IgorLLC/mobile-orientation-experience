@@ -313,6 +313,7 @@ body.is-desktop-mode .desktop-view {
     align-items: center;
     width: auto;
     height: 100%;
+    margin-left: clamp(15px, 3vw, 30px);
 }
 
 .landscape-text-image {
