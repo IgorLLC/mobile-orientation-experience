@@ -303,7 +303,7 @@ body.is-desktop-mode .desktop-view {
     height: 100%;
     overflow: visible;
     padding: 3vh 3vw;
-    padding-left: clamp(60px, 14vw, 120px);
+    padding-left: clamp(40px, 8vw, 80px);
     gap: clamp(15px, 4vw, 40px);
 }
 
@@ -353,7 +353,7 @@ body.is-desktop-mode .desktop-view {
 }
 
 .landscape-burger .burger-image {
-    width: clamp(280px, 175vh, 800px);
+    width: clamp(320px, 210vh, 950px);
     height: auto;
     object-fit: contain;
     transform: rotate(-90deg);
