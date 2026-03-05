@@ -202,26 +202,26 @@ body.is-desktop-mode .desktop-view {
     width: 100%;
     height: 100%;
     padding: 3vw;
-    padding-top: 8vh;
-    padding-bottom: 4vh;
+    padding-top: 10vh;
+    padding-bottom: 0;
     overflow: hidden;
 }
 
 /* Hamburguesa Portrait - esquina inferior izquierda, parcialmente fuera */
 .portrait-burger {
-    position: absolute;
-    bottom: -4vh;
-    left: -4vw;
-    width: auto;
-    z-index: 2;
+    flex: 0 0 auto;
+    margin-top: auto;
+    margin-left: -5vw;
+    margin-bottom: -5vh;
+    align-self: flex-start;
     overflow: visible;
 }
 
 .portrait-burger .burger-image {
     width: auto;
     height: auto;
-    max-width: 95vw;
-    max-height: 72vh;
+    max-width: 100vw;
+    max-height: 68vh;
     object-fit: contain;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
     animation: burgerFloat 3s ease-in-out infinite;
@@ -236,14 +236,14 @@ body.is-desktop-mode .desktop-view {
     }
 }
 
-/* Texto Portrait - arriba, antes de la hamburguesa */
+/* Texto Portrait - arriba izquierda */
 .portrait-content .text-container {
     width: 100%;
     max-width: 90vw;
-    text-align: center;
+    text-align: left;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex: 0 0 auto;
     margin-top: 0;
     padding-bottom: 2vh;
