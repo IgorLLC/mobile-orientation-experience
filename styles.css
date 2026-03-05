@@ -344,12 +344,11 @@ body.is-desktop-mode .desktop-view {
     position: relative;
 }
 
-/* Hamburguesa Landscape - centrada verticalmente, saliendo abajo-derecha */
+/* Hamburguesa Landscape - esquina inferior derecha */
 .landscape-burger {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 5vw;
+    bottom: -8vh;
+    right: -5vw;
     overflow: visible;
 }
 
