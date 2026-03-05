@@ -418,7 +418,13 @@ body.is-desktop-mode .desktop-view {
 }
 
 .coupon-code-wrapper.copied {
-    animation: copyPulse 0.3s ease-out;
+    animation: couponPulse 0.3s ease-out;
+}
+
+@keyframes couponPulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 /* ================================
