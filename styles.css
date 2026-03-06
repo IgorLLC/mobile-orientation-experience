@@ -347,7 +347,7 @@ body.is-desktop-mode .desktop-view {
 /* Hamburguesa Landscape - máximo tamaño, centrado perfecto */
 .landscape-burger {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 60%;
     transform: translate(-50%, -50%);
     overflow: visible;
