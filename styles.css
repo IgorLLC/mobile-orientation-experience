@@ -349,7 +349,7 @@ body.is-desktop-mode .desktop-view {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: -18vw;
+    right: -5vw;
     overflow: visible;
 }
 
