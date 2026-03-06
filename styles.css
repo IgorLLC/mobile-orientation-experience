@@ -348,7 +348,7 @@ body.is-desktop-mode .desktop-view {
 .landscape-burger {
     position: absolute;
     top: 80%;
-    left: 60%;
+    left: 65%;
     transform: translate(-50%, -50%);
     overflow: visible;
 }
