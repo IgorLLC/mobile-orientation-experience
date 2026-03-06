@@ -354,7 +354,7 @@ body.is-desktop-mode .desktop-view {
 }
 
 .landscape-burger .burger-image {
-    width: 200vh;
+    width: 400vh;
     height: auto;
     object-fit: contain;
     transform: rotate(-90deg);
