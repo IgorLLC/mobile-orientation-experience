@@ -344,17 +344,17 @@ body.is-desktop-mode .desktop-view {
     position: relative;
 }
 
-/* Hamburguesa Landscape - centrada, desbordando todos los bordes */
+/* Hamburguesa Landscape - máximo tamaño, centrado perfecto */
 .landscape-burger {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    right: -5vw;
+    left: 60%;
+    transform: translate(-50%, -50%);
     overflow: visible;
 }
 
 .landscape-burger .burger-image {
-    width: 160vh;
+    width: 200vh;
     height: auto;
     object-fit: contain;
     transform: rotate(-90deg);
