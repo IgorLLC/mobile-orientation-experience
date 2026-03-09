@@ -330,13 +330,16 @@ body.is-desktop-mode .desktop-view {
 }
 
 .landscape-legal-image {
+    position: absolute;
+    bottom: clamp(6px, 1.5vh, 14px);
+    left: 50%;
+    transform: translateX(-50%);
+    height: clamp(10px, 2.5vh, 20px);
     width: auto;
-    height: clamp(10px, 3vw, 28px);
     max-width: none;
     object-fit: contain;
-    transform: rotate(-90deg);
-    opacity: 0.85;
-    margin-top: clamp(8px, 2vh, 20px);
+    opacity: 0.8;
+    z-index: 2;
 }
 
 .landscape-text-image:active {
