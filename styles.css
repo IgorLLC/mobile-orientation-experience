@@ -327,6 +327,7 @@ body.is-desktop-mode .desktop-view {
     cursor: pointer;
     transition: transform 0.2s ease;
     transform: rotate(-90deg);
+    mix-blend-mode: multiply;
 }
 
 .landscape-legal-image {
@@ -339,6 +340,7 @@ body.is-desktop-mode .desktop-view {
     max-width: none;
     object-fit: contain;
     opacity: 0.8;
+    mix-blend-mode: multiply;
     z-index: 2;
 }
 
