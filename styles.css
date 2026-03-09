@@ -329,6 +329,16 @@ body.is-desktop-mode .desktop-view {
     transform: rotate(-90deg);
 }
 
+.landscape-legal-image {
+    width: auto;
+    height: clamp(10px, 3vw, 28px);
+    max-width: none;
+    object-fit: contain;
+    transform: rotate(-90deg);
+    opacity: 0.85;
+    margin-top: clamp(8px, 2vh, 20px);
+}
+
 .landscape-text-image:active {
     transform: rotate(-90deg) scale(0.98);
 }
