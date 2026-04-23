@@ -330,20 +330,6 @@ body.is-desktop-mode .desktop-view {
     mix-blend-mode: multiply;
 }
 
-.landscape-legal-image {
-    position: absolute;
-    bottom: clamp(6px, 1.5vh, 14px);
-    left: 50%;
-    transform: translateX(-50%);
-    height: clamp(10px, 2.5vh, 20px);
-    width: auto;
-    max-width: none;
-    object-fit: contain;
-    opacity: 0.8;
-    mix-blend-mode: multiply;
-    z-index: 2;
-}
-
 .landscape-text-image:active {
     transform: rotate(-90deg) scale(0.98);
 }
